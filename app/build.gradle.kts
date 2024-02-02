@@ -1,11 +1,14 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    //ksp
+    id("com.google.devtools.ksp")
+
 }
 
 android {
     namespace = "com.example.retrofitpokemon"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.retrofitpokemon"
@@ -33,9 +36,28 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+    val lifecycle_version = "2.7.0"
+
+    //viewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
+    //gson
+    implementation("com.google.code.gson:gson:2.10")
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.1.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.1.0")
+
+    //glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //ksp
+    ksp("androidx.room:room-compiler:2.6.1")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
