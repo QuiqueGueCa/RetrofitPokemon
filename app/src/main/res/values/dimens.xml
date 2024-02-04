@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="txtSize">24sp</dimen>
+    <dimen name="itemHeight">200dp</dimen>
+    <dimen name="commonMargin">16dp</dimen>
+</resources>
