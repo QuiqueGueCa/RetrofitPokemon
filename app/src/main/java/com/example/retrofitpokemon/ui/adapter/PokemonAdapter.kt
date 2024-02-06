@@ -1,12 +1,12 @@
-package com.example.retrofitpokemon.mainModule
+package com.example.retrofitpokemon.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitpokemon.R
+import com.example.retrofitpokemon.data.domain.model.PokemonModel
 import com.example.retrofitpokemon.databinding.ItemPokemonBinding
-import com.example.retrofitpokemon.models.PokemonModel
 
 class PokemonAdapter(private val pokemons: MutableList<PokemonModel>) :
     RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {

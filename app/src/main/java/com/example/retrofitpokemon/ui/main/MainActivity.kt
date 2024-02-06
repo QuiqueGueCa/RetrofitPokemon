@@ -1,12 +1,13 @@
-package com.example.retrofitpokemon.mainModule
+package com.example.retrofitpokemon.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.retrofitpokemon.data.domain.model.PokemonModel
 import com.example.retrofitpokemon.databinding.ActivityMainBinding
-import com.example.retrofitpokemon.models.PokemonModel
+import com.example.retrofitpokemon.ui.adapter.PokemonAdapter
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,8 +1,8 @@
-package com.example.retrofitpokemon.mainModule
+package com.example.retrofitpokemon.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.retrofitpokemon.models.PokemonModel
+import com.example.retrofitpokemon.data.domain.model.PokemonModel
 import com.example.retrofitpokemon.useCases.DataProvider
 
 class MainViewModel : ViewModel() {

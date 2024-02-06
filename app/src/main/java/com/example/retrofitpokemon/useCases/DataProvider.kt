@@ -2,7 +2,7 @@ package com.example.retrofitpokemon.useCases
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.example.retrofitpokemon.models.PokemonModel
+import com.example.retrofitpokemon.data.domain.model.PokemonModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
