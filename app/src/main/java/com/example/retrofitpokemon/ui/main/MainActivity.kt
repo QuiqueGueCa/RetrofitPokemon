@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.retrofitpokemon.data.domain.model.PokemonModel
+import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonModel
 import com.example.retrofitpokemon.databinding.ActivityMainBinding
 import com.example.retrofitpokemon.ui.adapter.PokemonAdapter
 

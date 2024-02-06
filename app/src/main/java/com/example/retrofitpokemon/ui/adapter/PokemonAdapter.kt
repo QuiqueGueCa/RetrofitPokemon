@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitpokemon.R
-import com.example.retrofitpokemon.data.domain.model.PokemonModel
+import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonModel
 import com.example.retrofitpokemon.databinding.ItemPokemonBinding
 
 class PokemonAdapter(private val pokemons: MutableList<PokemonModel>) :

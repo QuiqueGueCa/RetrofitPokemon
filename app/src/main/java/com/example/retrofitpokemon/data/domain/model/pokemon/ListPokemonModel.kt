@@ -1,6 +1,6 @@
-package com.example.retrofitpokemon.data.domain.model
+package com.example.retrofitpokemon.data.domain.model.pokemon
 
-import com.example.retrofitpokemon.data.domain.BaseModel
+import com.example.retrofitpokemon.data.domain.model.BaseModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
