@@ -2,6 +2,7 @@ package com.example.retrofitpokemon.data.domain.repository.remote
 
 import com.caverock.androidsvg.BuildConfig
 import com.google.gson.GsonBuilder
+import com.vasscompany.callapi.data.constants.GeneralConstants.Companion.RETROFIT_TIMEOUT_IN_SECOND
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,14 +12,6 @@ import java.util.concurrent.TimeUnit
 
 class RetrofitClient() {
     companion object {
-        const val HEADER_KEY_TOKEN = "Authorization"
-        const val HEADER_VALUE_TOKEN_START = "Bearer "
-        private const val COOKIE = "Cookie"
-        private const val CTX = "CTX="
-        private const val JSESSIONID = "JSESSIONID="
-
-        private const val sha256Pro = "sha256/rBdg34UcmakLyld0b2DbXyFAspIFTmU5XxfW9HbPefk="
-        private const val sha256Test = "sha256/i3svhbp3VbQyN0XXy+CpSlZOqm4LbkmfDGTUjoIAzzk="
 
         private var INSTANCE: RetrofitClient? = null
 
@@ -54,7 +47,7 @@ class RetrofitClient() {
         val gson = GsonBuilder().setLenient().create()
 
         retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl("https://pokeapi.co/api/v2/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(httpClient.build())
             .callbackExecutor(Executors.newSingleThreadExecutor())

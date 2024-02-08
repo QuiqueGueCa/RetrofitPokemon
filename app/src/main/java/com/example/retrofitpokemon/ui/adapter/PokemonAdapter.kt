@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitpokemon.R
-import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonModel
 import com.example.retrofitpokemon.databinding.ItemPokemonBinding
 
-class PokemonAdapter(private val pokemons: MutableList<PokemonModel>) :
+class PokemonAdapter(private val dataSet: ArrayList<String>) :
     RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
 
@@ -22,8 +21,14 @@ class PokemonAdapter(private val pokemons: MutableList<PokemonModel>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.tvNamePokemon.text = pokemons[position].name
+        holder.binding.tvNamePokemon.text = dataSet[position]
     }
 
-    override fun getItemCount(): Int = pokemons.size
+    override fun getItemCount(): Int = dataSet.size
+
+    fun refreshData(names: ArrayList<String>) {
+        dataSet.clear()
+        dataSet.addAll(names)
+        notifyDataSetChanged()
+    }
 }

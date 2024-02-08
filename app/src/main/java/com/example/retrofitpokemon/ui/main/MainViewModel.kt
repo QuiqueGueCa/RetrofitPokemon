@@ -1,13 +1,31 @@
 package com.example.retrofitpokemon.ui.main
 
-import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonModel
-import com.example.retrofitpokemon.useCases.DataProvider
+import androidx.lifecycle.viewModelScope
+import com.example.retrofitpokemon.data.domain.usecase.GetListPokemonUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val getListPokemonUseCase: GetListPokemonUseCase) : ViewModel() {
 
-    private val dataProvider = DataProvider()
-    var pokemons: LiveData<List<PokemonModel>> = dataProvider.pokemons
+    private val listPokemonNamesMutableStateFlow =
+        MutableStateFlow<ArrayList<String>>(arrayListOf())
+    val listPokemonNamesStateFlow: StateFlow<ArrayList<String>> = listPokemonNamesMutableStateFlow
 
+    fun getListPokemon() {
+        Log.d("TAG", "l> getListPokemon")
+        viewModelScope.launch(Dispatchers.IO) {
+            getListPokemonUseCase(30, 0).collect {
+                val arrayList = ArrayList(it.results.map { model -> model.name })
+                Log.d(
+                    "TAG",
+                    "l> Tenemos una lista de ${arrayList.size} elementos: $arrayList vamos a emitirla"
+                )
+                listPokemonNamesMutableStateFlow.value = arrayList
+            }
+        }
+    }
 }
