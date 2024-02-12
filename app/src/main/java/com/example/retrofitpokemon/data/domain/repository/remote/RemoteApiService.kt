@@ -14,7 +14,7 @@ interface RemoteApiService {
         @Query("offset") offset: Int,
     ): Response<ListPokemonResponse>
 
-    @GET("/api/10229233666327556/search/{id}")
+    @GET("pokemon/{id}")
     suspend fun getPokemonDetail(
         @Path("id") idPokemon: Int
     ): Response<PokemonDetailResponse>

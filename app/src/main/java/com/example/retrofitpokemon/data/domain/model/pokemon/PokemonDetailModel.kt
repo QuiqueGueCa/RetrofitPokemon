@@ -1,6 +1,6 @@
 package com.example.retrofitpokemon.data.domain.model.pokemon
 
-import android.os.Parcelable
+import com.example.retrofitpokemon.data.domain.model.BaseModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,4 +13,4 @@ data class PokemonDetailModel(
     val heightMeters: Float = 0.0f,
     val heightFeets: Float = 0.0f,
     val img: String = ""
-) : Parcelable
+) : BaseModel()
