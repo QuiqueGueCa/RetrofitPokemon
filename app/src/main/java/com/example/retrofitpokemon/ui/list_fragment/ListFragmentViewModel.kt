@@ -1,4 +1,4 @@
-package com.example.retrofitpokemon.ui.main
+package com.example.retrofitpokemon.ui.list_fragment
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -9,7 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val getListPokemonUseCase: GetListPokemonUseCase) : ViewModel() {
+class ListFragmentViewModel(private val getListPokemonUseCase: GetListPokemonUseCase) :
+    ViewModel() {
 
     private val listPokemonNamesMutableStateFlow =
         MutableStateFlow<ArrayList<String>>(arrayListOf())

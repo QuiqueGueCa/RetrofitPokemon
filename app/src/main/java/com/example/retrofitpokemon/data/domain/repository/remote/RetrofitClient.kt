@@ -1,8 +1,8 @@
 package com.example.retrofitpokemon.data.domain.repository.remote
 
 import com.caverock.androidsvg.BuildConfig
+import com.example.retrofitpokemon.data.constants.GeneralConstants.Companion.RETROFIT_TIMEOUT_IN_SECOND
 import com.google.gson.GsonBuilder
-import com.vasscompany.callapi.data.constants.GeneralConstants.Companion.RETROFIT_TIMEOUT_IN_SECOND
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-class RetrofitClient() {
+class RetrofitClient {
     companion object {
 
         private var INSTANCE: RetrofitClient? = null

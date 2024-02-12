@@ -1,4 +1,4 @@
-package com.vasscompany.callapi.data.constants
+package com.example.retrofitpokemon.data.constants
 
 class GeneralConstants {
     companion object {
