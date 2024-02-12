@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofitpokemon.data.domain.usecase.GetListPokemonUseCase
 import com.example.retrofitpokemon.databinding.FragmentListBinding
 import com.example.retrofitpokemon.injection.InjectionSingleton
-import com.example.retrofitpokemon.ui.adapter.PokemonAdapter
+import com.example.retrofitpokemon.ui.list_fragment.adapter.PokemonAdapter
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {

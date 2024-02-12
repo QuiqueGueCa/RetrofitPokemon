@@ -1,4 +1,4 @@
-package com.example.retrofitpokemon.ui.adapter
+package com.example.retrofitpokemon.ui.list_fragment.adapter
 
 import android.view.LayoutInflater
 import android.view.View

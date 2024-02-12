@@ -3,4 +3,6 @@
     <dimen name="txtSize">24sp</dimen>
     <dimen name="itemHeight">100dp</dimen>
     <dimen name="commonMargin">16dp</dimen>
+    <dimen name="imgSize">250dp</dimen>
+    <dimen name="minMargin">4dp</dimen>
 </resources>
