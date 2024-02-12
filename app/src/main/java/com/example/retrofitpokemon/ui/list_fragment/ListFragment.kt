@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofitpokemon.data.domain.usecase.GetListPokemonUseCase
 import com.example.retrofitpokemon.databinding.FragmentListBinding
@@ -14,7 +15,7 @@ import com.example.retrofitpokemon.injection.InjectionSingleton
 import com.example.retrofitpokemon.ui.list_fragment.adapter.PokemonAdapter
 import kotlinx.coroutines.launch
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
 
     private lateinit var mBinding: FragmentListBinding
     private lateinit var mAdapter: PokemonAdapter
@@ -51,11 +52,18 @@ class ListFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        mAdapter = PokemonAdapter(arrayListOf())
+        mAdapter = PokemonAdapter(arrayListOf(), this)
         val listLayout = LinearLayoutManager(requireContext())
 
         mBinding.recyclerView.setHasFixedSize(true)
         mBinding.recyclerView.layoutManager = listLayout
         mBinding.recyclerView.adapter = mAdapter
+    }
+
+    override fun onPokemonClick(id: Int) {
+        findNavController().navigate(
+            ListFragmentDirections
+                .actionListFragmentToDetailFragment(id = id)
+        )
     }
 }

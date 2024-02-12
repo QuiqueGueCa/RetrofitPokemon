@@ -14,6 +14,15 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.retrofitpokemon.ui.DetailFragment"
-        android:label="DetailFragment" />
+        android:name="com.example.retrofitpokemon.ui.detail_fragment.DetailFragment"
+        android:label="DetailFragment">
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <argument
+        android:name="id"
+        app:argType="integer"
+        android:defaultValue="-1" />
 </navigation>

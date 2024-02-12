@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,129 +13,129 @@
 
         <TextView
             android:id="@+id/tvName"
+            style="@style/whiteBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="NombrePokemon"
-            style="@style/whiteBold"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="@dimen/commonMargin"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginVertical="@dimen/commonMargin" />
+            tools:text="NombrePokemon" />
 
         <ImageView
             android:id="@+id/imgPokemon"
             android:layout_width="@dimen/imgSize"
             android:layout_height="@dimen/imgSize"
             android:layout_marginVertical="@dimen/commonMargin"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName" />
 
         <TextView
             android:id="@+id/tvWeight"
+            style="@style/whiteBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weight"
-            style="@style/whiteBold"
             android:layout_marginVertical="@dimen/commonMargin"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/weight"
             app:layout_constraintEnd_toStartOf="@id/tvHeight"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgPokemon" />
 
         <TextView
             android:id="@+id/tvWeightKg"
+            style="@style/whiteNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="15kg"
-            style="@style/whiteNormal"
             android:layout_marginTop="@dimen/commonMargin"
-            app:layout_constraintStart_toStartOf="@id/tvWeight"
             app:layout_constraintEnd_toEndOf="@id/tvWeight"
-            app:layout_constraintTop_toBottomOf="@id/tvWeight" />
+            app:layout_constraintStart_toStartOf="@id/tvWeight"
+            app:layout_constraintTop_toBottomOf="@id/tvWeight"
+            tools:text="15kg" />
 
         <TextView
             android:id="@+id/tvWeightPounds"
+            style="@style/whiteNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="23lb"
-            style="@style/whiteNormal"
             android:layout_marginTop="@dimen/minMargin"
-            app:layout_constraintStart_toStartOf="@id/tvWeight"
             app:layout_constraintEnd_toEndOf="@id/tvWeight"
-            app:layout_constraintTop_toBottomOf="@id/tvWeightKg" />
+            app:layout_constraintStart_toStartOf="@id/tvWeight"
+            app:layout_constraintTop_toBottomOf="@id/tvWeightKg"
+            tools:text="23lb" />
 
         <TextView
             android:id="@+id/tvWeightOunces"
+            style="@style/whiteNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="15onzas"
-            style="@style/whiteNormal"
             android:layout_marginTop="@dimen/minMargin"
-            app:layout_constraintStart_toStartOf="@id/tvWeight"
             app:layout_constraintEnd_toEndOf="@id/tvWeight"
-            app:layout_constraintTop_toBottomOf="@id/tvWeightPounds" />
+            app:layout_constraintStart_toStartOf="@id/tvWeight"
+            app:layout_constraintTop_toBottomOf="@id/tvWeightPounds"
+            tools:text="15onzas" />
 
         <TextView
             android:id="@+id/tvHeight"
+            style="@style/whiteBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/height"
-            style="@style/whiteBold"
-            app:layout_constraintStart_toEndOf="@id/tvWeight"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvWeight"
             app:layout_constraintTop_toTopOf="@id/tvWeight" />
 
         <TextView
             android:id="@+id/tvHeightMeters"
+            style="@style/whiteNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="15m"
-            style="@style/whiteNormal"
             android:layout_marginTop="@dimen/commonMargin"
-            app:layout_constraintStart_toStartOf="@id/tvHeight"
             app:layout_constraintEnd_toEndOf="@id/tvHeight"
-            app:layout_constraintTop_toBottomOf="@id/tvHeight" />
+            app:layout_constraintStart_toStartOf="@id/tvHeight"
+            app:layout_constraintTop_toBottomOf="@id/tvHeight"
+            tools:text="15m" />
 
         <TextView
             android:id="@+id/tvHeightFeets"
+            style="@style/whiteNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="15pies"
-            style="@style/whiteNormal"
             android:layout_marginTop="@dimen/minMargin"
-            app:layout_constraintStart_toStartOf="@id/tvHeight"
             app:layout_constraintEnd_toEndOf="@id/tvHeight"
-            app:layout_constraintTop_toBottomOf="@id/tvHeightMeters" />
+            app:layout_constraintStart_toStartOf="@id/tvHeight"
+            app:layout_constraintTop_toBottomOf="@id/tvHeightMeters"
+            tools:text="15pies" />
 
         <View
             android:id="@+id/vVerticalDivider"
-            android:layout_width="1dp"
+            android:layout_width="2dp"
             android:layout_height="0dp"
             android:background="@color/white"
-            app:layout_constraintTop_toTopOf="@id/tvWeight"
             app:layout_constraintBottom_toBottomOf="@id/tvWeightOunces"
+            app:layout_constraintEnd_toStartOf="@id/tvHeight"
             app:layout_constraintStart_toEndOf="@id/tvWeight"
-            app:layout_constraintEnd_toStartOf="@id/tvHeight" />
+            app:layout_constraintTop_toTopOf="@id/tvWeight" />
 
         <View
             android:id="@+id/vHorizontalDivider"
             android:layout_width="250dp"
-            android:layout_height="1dp"
-            android:background="@color/white"
+            android:layout_height="2dp"
             android:layout_marginVertical="@dimen/commonMargin"
-            app:layout_constraintTop_toBottomOf="@id/vVerticalDivider"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/vVerticalDivider" />
 
         <TextView
             android:id="@+id/tvAbilities"
+            style="@style/whiteBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/abilities"
-            style="@style/whiteBold"
             android:layout_marginTop="@dimen/commonMargin"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/abilities"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vHorizontalDivider" />
 
         <androidx.recyclerview.widget.RecyclerView
