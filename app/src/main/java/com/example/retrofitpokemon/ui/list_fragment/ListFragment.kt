@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitpokemon.data.domain.usecase.GetListPokemonUseCase
 import com.example.retrofitpokemon.databinding.FragmentListBinding
 import com.example.retrofitpokemon.injection.InjectionSingleton
@@ -41,6 +42,8 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
         setupViewModel()
 
         mViewModel.getListPokemon()
+
+        setupScrollListener()
     }
 
     private fun setupViewModel() {
@@ -65,5 +68,25 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
             ListFragmentDirections
                 .actionListFragmentToDetailFragment(position = position)
         )
+    }
+
+    private fun setupScrollListener() {
+        mBinding.recyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val layoutManager = mBinding.recyclerView.layoutManager
+                    val visibleItemCount = layoutManager?.childCount ?: 0
+                    val totalItemCount = layoutManager?.itemCount ?: 0
+                    val firstVisibleItemPosition =
+                        (layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition() ?: 0
+
+                    if (firstVisibleItemPosition + visibleItemCount >= totalItemCount) {
+                        setupViewModel()
+                        mViewModel.getListPokemon()
+                    }
+                }
+            })
     }
 }

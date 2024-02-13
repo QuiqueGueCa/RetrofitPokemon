@@ -15,18 +15,22 @@ class ListFragmentViewModel(private val getListPokemonUseCase: GetListPokemonUse
     private val listPokemonNamesMutableStateFlow =
         MutableStateFlow<ArrayList<String>>(arrayListOf())
     val listPokemonNamesStateFlow: StateFlow<ArrayList<String>> = listPokemonNamesMutableStateFlow
-
+    private var page = 0
+    private val pageSize = 30
+    private var namesList: ArrayList<String> = arrayListOf()
     fun getListPokemon() {
         Log.d("TAG", "l> getListPokemon")
         viewModelScope.launch(Dispatchers.IO) {
-            getListPokemonUseCase(30, 0).collect {
+            getListPokemonUseCase(pageSize, page * pageSize).collect {
                 val arrayList = ArrayList(it.results.map { model -> model.name })
+                namesList.addAll(arrayList)
                 Log.d(
                     "TAG",
                     "l> Tenemos una lista de ${arrayList.size} elementos: $arrayList vamos a emitirla"
                 )
-                listPokemonNamesMutableStateFlow.value = arrayList
+                listPokemonNamesMutableStateFlow.value = namesList
             }
+            page++
         }
     }
 }
