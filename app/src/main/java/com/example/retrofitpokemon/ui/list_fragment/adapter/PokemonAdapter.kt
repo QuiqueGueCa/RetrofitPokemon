@@ -15,15 +15,15 @@ class PokemonAdapter(
 
 
     interface PokemonListener {
-        fun onPokemonClick(id: Int)
+        fun onPokemonClick(position: Int)
     }
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemPokemonBinding.bind(view)
-        fun setListener(id: Int) {
+        fun setListener(position: Int) {
             binding.root.setOnClickListener {
-                listener.onPokemonClick(id)
+                listener.onPokemonClick(position)
             }
         }
     }

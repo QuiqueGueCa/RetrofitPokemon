@@ -39,6 +39,7 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
         setupAdapter()
 
         setupViewModel()
+
         mViewModel.getListPokemon()
     }
 
@@ -60,10 +61,10 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
         mBinding.recyclerView.adapter = mAdapter
     }
 
-    override fun onPokemonClick(id: Int) {
+    override fun onPokemonClick(position: Int) {
         findNavController().navigate(
             ListFragmentDirections
-                .actionListFragmentToDetailFragment(id = id)
+                .actionListFragmentToDetailFragment(position = position)
         )
     }
 }

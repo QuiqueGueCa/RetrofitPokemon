@@ -3,32 +3,68 @@ package com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon
 import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ResponseMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon.PokemonDetailResponse
+import java.text.DecimalFormat
+import java.util.Locale
 
 class PokemonDetailMapper : ResponseMapper<PokemonDetailResponse, PokemonDetailModel> {
 
     override fun fromResponse(response: PokemonDetailResponse): PokemonDetailModel {
         return PokemonDetailModel(
             response.id ?: -1,
-            response.name ?: "",
-            convertWeightToKg(response.weight) ?: 0.0f,
-            convertWeightToPounds(response.weight) ?: 0.0f,
-            convertWeightToOunces(response.weight) ?: 0.0f,
-            convertHeightToMeters(response.height) ?: 0.0f,
-            convertHeightToFeets(response.height) ?: 0.0f,
+            capitalizeName(response.name) ?: "",
+            convertWeightToKg(response.weight) ?: "",
+            convertWeightToPounds(response.weight) ?: "",
+            convertWeightToOunces(response.weight) ?: "",
+            convertHeightToMeters(response.height) ?: "",
+            convertHeightToFeets(response.height) ?: "",
             ""
         )
     }
 
-    private fun convertWeightToKg(hectograms: Int?): Float? = hectograms?.toFloat()?.div(10)
+    private fun capitalizeName(name: String?): String? {
+        return name?.replaceFirstChar {
+            if (it.isLowerCase()) {
+                it.titlecase(Locale.getDefault())
+            } else {
+                it.toString()
+            }
+        }
+    }
 
-    private fun convertWeightToPounds(hectograms: Int?): Float? =
-        convertWeightToKg(hectograms)?.times(2.20462f)
 
-    private fun convertWeightToOunces(hectograms: Int?): Float? =
-        convertWeightToKg(hectograms)?.times(35.274f)
+    private fun convertToString(numToConvert: Float?, mesureType: String): String? {
+        val format = DecimalFormat()
+        format.maximumFractionDigits = 2
 
-    private fun convertHeightToMeters(decimeters: Int?): Float? = decimeters?.toFloat()?.div(10)
+        return format.format(numToConvert) + " " + mesureType
+    }
 
-    private fun convertHeightToFeets(decimeters: Int?): Float? =
-        convertHeightToMeters(decimeters)?.times(3.28084f)
+    private fun convertWeightToKg(hectograms: Int?): String? {
+        val kg = hectograms?.toFloat()?.div(10)
+
+        return convertToString(kg, "Kg")
+    }
+
+    private fun convertWeightToPounds(hectograms: Int?): String? {
+        val kg = hectograms?.toFloat()?.div(10)
+        val pounds = kg?.times(2.20462f)
+        return convertToString(pounds, "lb")
+    }
+
+    private fun convertWeightToOunces(hectograms: Int?): String? {
+        val kg = hectograms?.toFloat()?.div(10)
+        val ounces = kg?.times(35.274f)
+        return convertToString(ounces, "Oz")
+    }
+
+    private fun convertHeightToMeters(decimeters: Int?): String? {
+        val meters = decimeters?.toFloat()?.div(10)
+        return convertToString(meters, "m")
+    }
+
+    private fun convertHeightToFeets(decimeters: Int?): String? {
+        val meters = decimeters?.toFloat()?.div(10)
+        val feets = meters?.times(3.28084f)
+        return convertToString(feets, "ft")
+    }
 }

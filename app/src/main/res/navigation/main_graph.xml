@@ -17,12 +17,7 @@
         android:name="com.example.retrofitpokemon.ui.detail_fragment.DetailFragment"
         android:label="DetailFragment">
         <argument
-            android:name="id"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:name="position"
+            app:argType="integer" />
     </fragment>
-    <argument
-        android:name="id"
-        app:argType="integer"
-        android:defaultValue="-1" />
 </navigation>

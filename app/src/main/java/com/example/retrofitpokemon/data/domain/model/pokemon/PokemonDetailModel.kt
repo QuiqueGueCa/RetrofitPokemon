@@ -7,10 +7,10 @@ import kotlinx.parcelize.Parcelize
 data class PokemonDetailModel(
     val id: Int = -1,
     val name: String = "",
-    val weightKg: Float = 0.0f,
-    val weightLb: Float = 0.0f,
-    val weightOz: Float = 0.0f,
-    val heightMeters: Float = 0.0f,
-    val heightFeets: Float = 0.0f,
+    val weightKg: String = "",
+    val weightLb: String = "",
+    val weightOz: String = "",
+    val heightMeters: String = "",
+    val heightFeets: String = "",
     val img: String = ""
 ) : BaseModel()
