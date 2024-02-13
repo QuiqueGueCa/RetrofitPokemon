@@ -37,7 +37,7 @@ data class PokemonDetailResponse(
     @SerializedName("species")
     val species: Any?,
     @SerializedName("sprites")
-    val sprites: Any?,
+    val sprites: SpritesResponse?,
     @SerializedName("stats")
     val stats: List<Any>?,
     @SerializedName("types")

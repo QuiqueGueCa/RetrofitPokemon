@@ -12,5 +12,5 @@ data class PokemonDetailModel(
     val weightOz: String = "",
     val heightMeters: String = "",
     val heightFeets: String = "",
-    val img: String = ""
+    val spritesModel: SpritesModel = SpritesModel()
 ) : BaseModel()

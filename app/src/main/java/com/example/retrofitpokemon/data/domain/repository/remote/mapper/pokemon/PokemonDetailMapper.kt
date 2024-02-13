@@ -1,8 +1,10 @@
 package com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon
 
 import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonDetailModel
+import com.example.retrofitpokemon.data.domain.model.pokemon.SpritesModel
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ResponseMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon.PokemonDetailResponse
+import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon.SpritesResponse
 import java.text.DecimalFormat
 import java.util.Locale
 
@@ -17,9 +19,19 @@ class PokemonDetailMapper : ResponseMapper<PokemonDetailResponse, PokemonDetailM
             convertWeightToOunces(response.weight) ?: "",
             convertHeightToMeters(response.height) ?: "",
             convertHeightToFeets(response.height) ?: "",
-            ""
+            setupSprite(response.sprites) ?: SpritesModel()
         )
     }
+
+    private fun setupSprite(spritesResponse: SpritesResponse?): SpritesModel? {
+        var sprite = ""
+
+        if (!spritesResponse?.frontDefault.isNullOrBlank()) {
+            sprite = spritesResponse?.frontDefault!!
+        }
+        return SpritesModel(sprite)
+    }
+
 
     private fun capitalizeName(name: String?): String? {
         return name?.replaceFirstChar {
@@ -30,7 +42,6 @@ class PokemonDetailMapper : ResponseMapper<PokemonDetailResponse, PokemonDetailM
             }
         }
     }
-
 
     private fun convertToString(numToConvert: Float?, mesureType: String): String? {
         val format = DecimalFormat()

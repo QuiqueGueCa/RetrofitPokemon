@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonDetailUseCase
 import com.example.retrofitpokemon.databinding.FragmentDetailBinding
@@ -56,5 +58,9 @@ class DetailFragment : Fragment() {
             tvHeightFeets.text = pokemonDetailModel.heightFeets
             tvHeightMeters.text = pokemonDetailModel.heightMeters
         }
+        Glide.with(requireContext())
+            .load(pokemonDetailModel.spritesModel.sprite)
+            .apply(RequestOptions().centerCrop())
+            .into(mBinding.imgPokemon)
     }
 }
