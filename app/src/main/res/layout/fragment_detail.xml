@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/commonMargin"
             android:text="@string/weight"
-            app:layout_constraintEnd_toStartOf="@id/tvHeight"
+            app:layout_constraintEnd_toStartOf="@id/vVerticalDivider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgPokemon" />
 
@@ -75,6 +75,13 @@
             app:layout_constraintTop_toBottomOf="@id/tvWeightPounds"
             tools:text="15onzas" />
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="tvWeight, tvWeightKg, tvWeightOunces, tvWeightPounds" />
+
         <TextView
             android:id="@+id/tvHeight"
             style="@style/whiteBold"
@@ -82,7 +89,7 @@
             android:layout_height="wrap_content"
             android:text="@string/height"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvWeight"
+            app:layout_constraintStart_toEndOf="@id/vVerticalDivider"
             app:layout_constraintTop_toTopOf="@id/tvWeight" />
 
         <TextView
@@ -107,14 +114,22 @@
             app:layout_constraintTop_toBottomOf="@id/tvHeightMeters"
             tools:text="15pies" />
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="tvHeight, tvHeightFeets, tvHeightMeters" />
+
+
         <View
             android:id="@+id/vVerticalDivider"
             android:layout_width="2dp"
             android:layout_height="0dp"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/tvWeightOunces"
-            app:layout_constraintEnd_toStartOf="@id/tvHeight"
-            app:layout_constraintStart_toEndOf="@id/tvWeight"
+            app:layout_constraintEnd_toStartOf="@id/barrierHeight"
+            app:layout_constraintStart_toEndOf="@id/barrierWeight"
             app:layout_constraintTop_toTopOf="@id/tvWeight" />
 
         <View
