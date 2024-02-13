@@ -1,4 +1,4 @@
-package com.example.retrofitpokemon.data.domain.model.pokemon
+package com.example.retrofitpokemon.data.domain.model.pokemon_detail
 
 import com.example.retrofitpokemon.data.domain.model.BaseModel
 import kotlinx.parcelize.Parcelize
@@ -12,5 +12,6 @@ data class PokemonDetailModel(
     val weightOz: String = "",
     val heightMeters: String = "",
     val heightFeets: String = "",
-    val spritesModel: SpritesModel = SpritesModel()
+    val spritesModel: SpritesModel = SpritesModel(),
+    val abilities: MutableList<AbilityFullDataModel> = mutableListOf()
 ) : BaseModel()

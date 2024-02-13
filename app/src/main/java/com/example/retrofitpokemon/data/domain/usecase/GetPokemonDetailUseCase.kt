@@ -1,6 +1,6 @@
 package com.example.retrofitpokemon.data.domain.usecase
 
-import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonDetailModel
+import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.repository.DataProvider
 import kotlinx.coroutines.flow.Flow
 

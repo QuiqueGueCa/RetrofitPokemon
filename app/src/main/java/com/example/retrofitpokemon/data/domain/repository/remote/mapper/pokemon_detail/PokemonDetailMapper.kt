@@ -1,10 +1,12 @@
-package com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon
+package com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon_detail
 
-import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonDetailModel
-import com.example.retrofitpokemon.data.domain.model.pokemon.SpritesModel
+import com.example.retrofitpokemon.data.domain.model.pokemon_detail.AbilityFullDataModel
+import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
+import com.example.retrofitpokemon.data.domain.model.pokemon_detail.SpritesModel
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ResponseMapper
-import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon.PokemonDetailResponse
-import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon.SpritesResponse
+import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.AbilityFullDataResponse
+import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.PokemonDetailResponse
+import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.SpritesResponse
 import java.text.DecimalFormat
 import java.util.Locale
 
@@ -19,19 +21,34 @@ class PokemonDetailMapper : ResponseMapper<PokemonDetailResponse, PokemonDetailM
             convertWeightToOunces(response.weight) ?: "",
             convertHeightToMeters(response.height) ?: "",
             convertHeightToFeets(response.height) ?: "",
-            setupSprite(response.sprites) ?: SpritesModel()
+            setupSprite(response.sprites),
+            setupAbilities(response.abilities)
         )
     }
 
-    private fun setupSprite(spritesResponse: SpritesResponse?): SpritesModel? {
-        var sprite = ""
 
-        if (!spritesResponse?.frontDefault.isNullOrBlank()) {
-            sprite = spritesResponse?.frontDefault!!
+    private fun setupAbilities(
+        abilityFullDataResponseList: MutableList<AbilityFullDataResponse>?
+    ): MutableList<AbilityFullDataModel> {
+        val abilityFullDataMapper = AbilityFullDataMapper()
+        val abilityFullDataModelList = mutableListOf<AbilityFullDataModel>()
+        if (!abilityFullDataResponseList.isNullOrEmpty()) {
+            abilityFullDataResponseList.forEach {
+                abilityFullDataModelList.add(abilityFullDataMapper.fromResponse(it))
+            }
         }
-        return SpritesModel(sprite)
+        return abilityFullDataModelList
     }
 
+    private fun setupSprite(spritesResponse: SpritesResponse?): SpritesModel {
+        var spritesModel = SpritesModel()
+        val spritesMapper = SpritesMapper()
+
+        if (spritesResponse != null) {
+            spritesModel = spritesMapper.fromResponse(spritesResponse)
+        }
+        return spritesModel
+    }
 
     private fun capitalizeName(name: String?): String? {
         return name?.replaceFirstChar {

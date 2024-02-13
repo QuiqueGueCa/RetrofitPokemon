@@ -1,10 +1,10 @@
-package com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon
+package com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail
 
 import com.google.gson.annotations.SerializedName
 
 data class PokemonDetailResponse(
     @SerializedName("abilities")
-    val abilities: List<Any>?,
+    val abilities: MutableList<AbilityFullDataResponse>?,
     @SerializedName("base_experience")
     val baseExperience: Int?,
     @SerializedName("cries")

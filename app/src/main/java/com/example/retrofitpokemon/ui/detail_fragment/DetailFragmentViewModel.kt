@@ -2,7 +2,7 @@ package com.example.retrofitpokemon.ui.detail_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonDetailModel
+import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonDetailUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

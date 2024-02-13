@@ -1,4 +1,4 @@
-package com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon
+package com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail
 
 import com.google.gson.annotations.SerializedName
 

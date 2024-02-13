@@ -1,10 +1,10 @@
 package com.example.retrofitpokemon.data.domain.repository.remote
 
 import com.example.retrofitpokemon.data.domain.model.pokemon.ListPokemonModel
-import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonDetailModel
+import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.repository.DataSource
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon.ListPokemonMapper
-import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon.PokemonDetailMapper
+import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon_detail.PokemonDetailMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -54,10 +54,9 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
 
     private fun setupAdapter() {
         mAdapter = PokemonAdapter(arrayListOf(), this)
-        val listLayout = LinearLayoutManager(requireContext())
 
         mBinding.recyclerView.setHasFixedSize(true)
-        mBinding.recyclerView.layoutManager = listLayout
+        mBinding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         mBinding.recyclerView.adapter = mAdapter
     }
 
