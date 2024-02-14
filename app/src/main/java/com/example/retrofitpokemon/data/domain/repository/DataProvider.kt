@@ -26,7 +26,7 @@ class DataProvider(private val remoteDataSource: DataSource) : DataSource {
         return remoteDataSource.getPokemonDetail(idPokemon)
     }
 
-    override fun getAbilitiesContent(url: String): Flow<AbilityDetailModel> {
-        return remoteDataSource.getAbilitiesContent(url)
+    override fun getAbilityDetail(url: String): Flow<AbilityDetailModel> {
+        return remoteDataSource.getAbilityDetail(url)
     }
 }

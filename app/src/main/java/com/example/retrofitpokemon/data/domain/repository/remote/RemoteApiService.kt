@@ -24,7 +24,7 @@ interface RemoteApiService {
 
     //De esta manera sustituya la url
     @GET
-    suspend fun getAbilitiesContent(
+    suspend fun getAbilityDetail(
         @Url url: String
     ): Response<AbilityDetailResponse>
 }

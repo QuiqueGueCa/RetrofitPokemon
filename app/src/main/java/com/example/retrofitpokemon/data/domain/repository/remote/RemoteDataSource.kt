@@ -39,10 +39,10 @@ class RemoteDataSource(private val remoteApiService: RemoteApiService) : DataSou
         )
     }
 
-    override fun getAbilitiesContent(url: String): Flow<AbilityDetailModel> = flow {
+    override fun getAbilityDetail(url: String): Flow<AbilityDetailModel> = flow {
         emit(
             AbilityDetailMapper().fromResponse(
-                remoteApiService.getAbilitiesContent(url).body()!!
+                remoteApiService.getAbilityDetail(url).body()!!
             )
         )
     }

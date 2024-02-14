@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
+import com.example.retrofitpokemon.data.domain.usecase.GetAbilityDetailUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonDetailUseCase
 import com.example.retrofitpokemon.databinding.FragmentDetailBinding
 import com.example.retrofitpokemon.injection.InjectionSingleton
@@ -22,7 +23,10 @@ class DetailFragment : Fragment() {
     private lateinit var mAdapter: AbilityAdapter
     private val args: DetailFragmentArgs by navArgs()
     private val mViewModel: DetailFragmentViewModel =
-        DetailFragmentViewModel(GetPokemonDetailUseCase(InjectionSingleton.provideDataSource()))
+        DetailFragmentViewModel(
+            GetPokemonDetailUseCase(InjectionSingleton.provideDataSource()),
+            GetAbilityDetailUseCase(InjectionSingleton.provideDataSource())
+        )
 
     private lateinit var mBinding: FragmentDetailBinding
     override fun onCreateView(
@@ -59,9 +63,15 @@ class DetailFragment : Fragment() {
         lifecycleScope.launch {
             mViewModel.pokemonDetailFlow.collect {
                 setupData(it)
-                mAdapter.refreshData(it.abilities)
             }
         }
+        lifecycleScope.launch {
+            mViewModel.abilitiesFlow.collect {
+                mAdapter.refreshData(it)
+            }
+        }
+
+
     }
 
     private fun setupData(pokemonDetailModel: PokemonDetailModel) {

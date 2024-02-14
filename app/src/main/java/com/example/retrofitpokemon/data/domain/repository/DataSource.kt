@@ -10,5 +10,5 @@ interface DataSource {
 
     fun getPokemonDetail(idPokemon: Int): Flow<PokemonDetailModel>
 
-    fun getAbilitiesContent(url: String): Flow<AbilityDetailModel>
+    fun getAbilityDetail(url: String): Flow<AbilityDetailModel>
 }
