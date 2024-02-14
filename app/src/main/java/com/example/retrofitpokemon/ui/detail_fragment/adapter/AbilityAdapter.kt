@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitpokemon.R
-import com.example.retrofitpokemon.data.domain.model.pokemon_detail.AbilityFullDataModel
+import com.example.retrofitpokemon.data.domain.model.ability_detail.AbilityDetailModel
 import com.example.retrofitpokemon.databinding.ItemAbilityBinding
 
-class AbilityAdapter(private val abilities: MutableList<AbilityFullDataModel>) :
+class AbilityAdapter(private val abilities: MutableList<AbilityDetailModel>) :
     RecyclerView.Adapter<AbilityAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -21,12 +21,13 @@ class AbilityAdapter(private val abilities: MutableList<AbilityFullDataModel>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.tvNameAbility.text = abilities[position].ability.name
+        holder.binding.tvNameAbility.text = abilities[position].name
+        holder.binding.tvDescriptionAility.text = abilities[position].effectEntriesModel.effect
     }
 
     override fun getItemCount(): Int = abilities.count()
 
-    fun refreshData(dataSet: MutableList<AbilityFullDataModel>) {
+    fun refreshData(dataSet: MutableList<AbilityDetailModel>) {
         abilities.clear()
         abilities.addAll(dataSet)
         notifyDataSetChanged()

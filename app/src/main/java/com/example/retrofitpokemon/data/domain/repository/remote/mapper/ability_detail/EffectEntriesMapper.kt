@@ -1,20 +1,20 @@
 package com.example.retrofitpokemon.data.domain.repository.remote.mapper.ability_detail
 
-import com.example.retrofitpokemon.data.domain.model.ability_detail.EffectChangesModel
+import com.example.retrofitpokemon.data.domain.model.ability_detail.EffectEntriesModel
 import com.example.retrofitpokemon.data.domain.model.ability_detail.LanguageModel
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ResponseMapper
-import com.example.retrofitpokemon.data.domain.repository.remote.response.ability_detail.EffectChangesResponse
+import com.example.retrofitpokemon.data.domain.repository.remote.response.ability_detail.EffectEntriesResponse
 
-class EffectChangesMapper : ResponseMapper<EffectChangesResponse, EffectChangesModel> {
+class EffectEntriesMapper : ResponseMapper<EffectEntriesResponse, EffectEntriesModel> {
 
-    override fun fromResponse(response: EffectChangesResponse): EffectChangesModel {
+    override fun fromResponse(response: EffectEntriesResponse): EffectEntriesModel {
         val languageMapper = LanguageMapper()
         var languageModel = LanguageModel()
         if (response.language != null) {
             languageModel = languageMapper.fromResponse(response.language)
         }
 
-        return EffectChangesModel(
+        return EffectEntriesModel(
             response.effect ?: "",
             response.shortEffect ?: "",
             languageModel

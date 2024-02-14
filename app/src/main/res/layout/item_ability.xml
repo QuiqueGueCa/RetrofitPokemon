@@ -13,8 +13,22 @@
         android:layout_height="wrap_content"
         tools:text="NombreHabilidad"
         android:textSize="@dimen/nameAbility"
+        android:textStyle="bold"
         android:layout_marginTop="@dimen/commonMargin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDescriptionAility"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:text="Nombre asda sadas asdsad asdsad Habilidad"
+        android:layout_marginHorizontal="@dimen/commonMargin"
+        android:layout_marginVertical="@dimen/minMargin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNameAbility"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:ellipsize="end" />
 </androidx.constraintlayout.widget.ConstraintLayout>

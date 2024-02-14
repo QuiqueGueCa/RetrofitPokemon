@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class AbilityDetailModel(
     val id: Int = -1,
     val name: String = "",
-    val effectChangesModel: EffectChangesModel = EffectChangesModel()
+    val effectEntriesModel: EffectEntriesModel = EffectEntriesModel()
 ) : BaseModel()

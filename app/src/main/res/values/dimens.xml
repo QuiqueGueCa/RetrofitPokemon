@@ -6,7 +6,7 @@
     <dimen name="imgSize">250dp</dimen>
     <dimen name="minMargin">4dp</dimen>
     <dimen name="nameAbility">15sp</dimen>
-    <dimen name="itemAbilityWidth">150dp</dimen>
-    <dimen name="itemAbilityHeight">75dp</dimen>
+    <dimen name="itemAbilityWidth">300dp</dimen>
+    <dimen name="itemAbilityHeight">100dp</dimen>
     <dimen name="dividerHorizontalWidth">330dp</dimen>
 </resources>

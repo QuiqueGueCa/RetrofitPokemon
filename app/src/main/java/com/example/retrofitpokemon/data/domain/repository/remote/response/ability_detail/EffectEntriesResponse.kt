@@ -2,7 +2,7 @@ package com.example.retrofitpokemon.data.domain.repository.remote.response.abili
 
 import com.google.gson.annotations.SerializedName
 
-data class EffectChangesResponse(
+data class EffectEntriesResponse(
     @SerializedName("effect")
     val effect: String?,
     @SerializedName("language")

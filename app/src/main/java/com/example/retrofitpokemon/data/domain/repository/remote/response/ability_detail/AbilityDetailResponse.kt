@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class AbilityDetailResponse(
     @SerializedName("effect_changes")
-    val effectChanges: List<EffectChangesResponse>?,
+    val effectChanges: List<Any>?,
     @SerializedName("effect_entries")
-    val effectEntries: List<Any>?,
+    val effectEntries: MutableList<EffectEntriesResponse>?,
     @SerializedName("flavor_text_entries")
     val flavorTextEntries: List<Any>?,
     @SerializedName("generation")

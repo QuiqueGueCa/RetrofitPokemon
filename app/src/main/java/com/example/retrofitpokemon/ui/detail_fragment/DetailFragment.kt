@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
@@ -54,7 +54,7 @@ class DetailFragment : Fragment() {
 
         with(mBinding) {
             recyclerView.setHasFixedSize(true)
-            recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
             recyclerView.adapter = mAdapter
         }
     }
@@ -65,13 +65,12 @@ class DetailFragment : Fragment() {
                 setupData(it)
             }
         }
+
         lifecycleScope.launch {
             mViewModel.abilitiesFlow.collect {
                 mAdapter.refreshData(it)
             }
         }
-
-
     }
 
     private fun setupData(pokemonDetailModel: PokemonDetailModel) {

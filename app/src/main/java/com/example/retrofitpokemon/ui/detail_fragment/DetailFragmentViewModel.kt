@@ -20,7 +20,7 @@ class DetailFragmentViewModel(
     private val _pokemonDetailFlow = MutableStateFlow(PokemonDetailModel())
     val pokemonDetailFlow: StateFlow<PokemonDetailModel> = _pokemonDetailFlow
     private val _abilitiesFlow = MutableStateFlow(mutableListOf(AbilityDetailModel()))
-    val abilitiesFlow: StateFlow<List<AbilityDetailModel>> = _abilitiesFlow
+    val abilitiesFlow: StateFlow<MutableList<AbilityDetailModel>> = _abilitiesFlow
 
     private var abilities: MutableList<AbilityDetailModel> = mutableListOf()
 
@@ -39,8 +39,8 @@ class DetailFragmentViewModel(
         for (ability: AbilityFullDataModel in _pokemonDetailFlow.value.abilities) {
             getAbilityDetailUseCase(ability.ability.url).collect {
                 abilities.add(it)
-                _abilitiesFlow.value = abilities
             }
         }
+        _abilitiesFlow.value = abilities
     }
 }

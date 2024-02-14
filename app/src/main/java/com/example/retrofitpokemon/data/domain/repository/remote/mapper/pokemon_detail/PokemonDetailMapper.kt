@@ -25,8 +25,7 @@ class PokemonDetailMapper : ResponseMapper<PokemonDetailResponse, PokemonDetailM
             setupAbilities(response.abilities)
         )
     }
-
-
+    
     private fun setupAbilities(
         abilityFullDataResponseList: MutableList<AbilityFullDataResponse>?
     ): MutableList<AbilityFullDataModel> {

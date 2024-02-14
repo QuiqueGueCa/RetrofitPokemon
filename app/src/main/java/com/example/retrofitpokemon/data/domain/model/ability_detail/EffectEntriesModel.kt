@@ -4,7 +4,7 @@ import com.example.retrofitpokemon.data.domain.model.BaseModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class EffectChangesModel(
+data class EffectEntriesModel(
     val effect: String = "",
     val shortEffect: String = "",
     val language: LanguageModel = LanguageModel()
