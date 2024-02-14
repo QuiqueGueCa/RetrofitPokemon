@@ -3,4 +3,5 @@
     <string name="weight">Peso:</string>
     <string name="height">Altura:</string>
     <string name="abilities">Habilidades:</string>
+    <string name="imgPokemon">Imagen del pokemon</string>
 </resources>
