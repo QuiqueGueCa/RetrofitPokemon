@@ -1,5 +1,6 @@
 package com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon
 
+import com.example.retrofitpokemon.data.domain.repository.remote.response.common.PokemonResponse
 import com.google.gson.annotations.SerializedName
 
 data class ListPokemonResponse(

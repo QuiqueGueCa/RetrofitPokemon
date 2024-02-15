@@ -1,8 +1,8 @@
-package com.example.retrofitpokemon.data.domain.repository.remote.mapper.ability_detail
+package com.example.retrofitpokemon.data.domain.repository.remote.mapper.common
 
-import com.example.retrofitpokemon.data.domain.model.ability_detail.LanguageModel
+import com.example.retrofitpokemon.data.domain.model.common.LanguageModel
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ResponseMapper
-import com.example.retrofitpokemon.data.domain.repository.remote.response.ability_detail.LanguageResponse
+import com.example.retrofitpokemon.data.domain.repository.remote.response.common.LanguageResponse
 
 class LanguageMapper : ResponseMapper<LanguageResponse, LanguageModel> {
     override fun fromResponse(response: LanguageResponse): LanguageModel {

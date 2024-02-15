@@ -1,8 +1,8 @@
-package com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon
+package com.example.retrofitpokemon.data.domain.repository.remote.mapper.common
 
-import com.example.retrofitpokemon.data.domain.model.pokemon.PokemonModel
+import com.example.retrofitpokemon.data.domain.model.common.PokemonModel
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ResponseMapper
-import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon.PokemonResponse
+import com.example.retrofitpokemon.data.domain.repository.remote.response.common.PokemonResponse
 
 class PokemonMapper : ResponseMapper<PokemonResponse, PokemonModel> {
     override fun fromResponse(response: PokemonResponse): PokemonModel {

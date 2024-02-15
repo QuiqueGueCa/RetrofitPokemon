@@ -1,5 +1,6 @@
 package com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail
 
+import com.example.retrofitpokemon.data.domain.repository.remote.response.common.SpeciesResponse
 import com.google.gson.annotations.SerializedName
 
 data class PokemonDetailResponse(
@@ -35,7 +36,7 @@ data class PokemonDetailResponse(
     @SerializedName("past_types")
     val pastTypes: List<Any>?,
     @SerializedName("species")
-    val species: Any?,
+    val species: SpeciesResponse?,
     @SerializedName("sprites")
     val sprites: SpritesResponse?,
     @SerializedName("stats")

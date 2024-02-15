@@ -1,8 +1,9 @@
 package com.example.retrofitpokemon.data.domain.repository.remote.mapper.ability_detail
 
 import com.example.retrofitpokemon.data.domain.model.ability_detail.EffectEntriesModel
-import com.example.retrofitpokemon.data.domain.model.ability_detail.LanguageModel
+import com.example.retrofitpokemon.data.domain.model.common.LanguageModel
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ResponseMapper
+import com.example.retrofitpokemon.data.domain.repository.remote.mapper.common.LanguageMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.response.ability_detail.EffectEntriesResponse
 
 class EffectEntriesMapper : ResponseMapper<EffectEntriesResponse, EffectEntriesModel> {

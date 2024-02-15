@@ -1,9 +1,12 @@
 package com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon_detail
 
+import com.example.retrofitpokemon.data.domain.model.common.SpeciesModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.AbilityFullDataModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.SpritesModel
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ResponseMapper
+import com.example.retrofitpokemon.data.domain.repository.remote.mapper.common.SpeciesMapper
+import com.example.retrofitpokemon.data.domain.repository.remote.response.common.SpeciesResponse
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.AbilityFullDataResponse
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.PokemonDetailResponse
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.SpritesResponse
@@ -22,10 +25,21 @@ class PokemonDetailMapper : ResponseMapper<PokemonDetailResponse, PokemonDetailM
             convertHeightToMeters(response.height) ?: "",
             convertHeightToFeets(response.height) ?: "",
             setupSprite(response.sprites),
-            setupAbilities(response.abilities)
+            setupAbilities(response.abilities),
+            setupSpecies(response.species)
+
         )
     }
-    
+
+    private fun setupSpecies(species: SpeciesResponse?): SpeciesModel {
+        val speciesMapper = SpeciesMapper()
+        var speciesModel = SpeciesModel()
+        if (species != null) {
+            speciesModel = speciesMapper.fromResponse(species)
+        }
+        return speciesModel
+    }
+
     private fun setupAbilities(
         abilityFullDataResponseList: MutableList<AbilityFullDataResponse>?
     ): MutableList<AbilityFullDataModel> {

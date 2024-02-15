@@ -1,5 +1,6 @@
 package com.example.retrofitpokemon.data.domain.repository.remote.response.ability_detail
 
+import com.example.retrofitpokemon.data.domain.repository.remote.response.common.LanguageResponse
 import com.google.gson.annotations.SerializedName
 
 data class EffectEntriesResponse(
