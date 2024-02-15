@@ -3,6 +3,7 @@ package com.example.retrofitpokemon.data.domain.repository
 import com.example.retrofitpokemon.data.domain.model.ability_detail.AbilityDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon.ListPokemonModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
+import com.example.retrofitpokemon.data.domain.model.pokemon_species.PokemonSpeciesModel
 import kotlinx.coroutines.flow.Flow
 
 class DataProvider(private val remoteDataSource: DataSource) : DataSource {
@@ -28,5 +29,9 @@ class DataProvider(private val remoteDataSource: DataSource) : DataSource {
 
     override fun getAbilityDetail(url: String): Flow<AbilityDetailModel> {
         return remoteDataSource.getAbilityDetail(url)
+    }
+
+    override fun getPokemonSpecies(url: String): Flow<PokemonSpeciesModel> {
+        return remoteDataSource.getPokemonSpecies(url)
     }
 }

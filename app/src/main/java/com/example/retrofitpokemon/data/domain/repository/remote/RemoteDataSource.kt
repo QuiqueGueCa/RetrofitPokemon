@@ -3,10 +3,12 @@ package com.example.retrofitpokemon.data.domain.repository.remote
 import com.example.retrofitpokemon.data.domain.model.ability_detail.AbilityDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon.ListPokemonModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
+import com.example.retrofitpokemon.data.domain.model.pokemon_species.PokemonSpeciesModel
 import com.example.retrofitpokemon.data.domain.repository.DataSource
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ability_detail.AbilityDetailMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon.ListPokemonMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon_detail.PokemonDetailMapper
+import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon_species.PokemonSpeciesMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -43,6 +45,14 @@ class RemoteDataSource(private val remoteApiService: RemoteApiService) : DataSou
         emit(
             AbilityDetailMapper().fromResponse(
                 remoteApiService.getAbilityDetail(url).body()!!
+            )
+        )
+    }
+
+    override fun getPokemonSpecies(url: String): Flow<PokemonSpeciesModel> = flow {
+        emit(
+            PokemonSpeciesMapper().fromResponse(
+                remoteApiService.getPokemonSpecies(url).body()!!
             )
         )
     }

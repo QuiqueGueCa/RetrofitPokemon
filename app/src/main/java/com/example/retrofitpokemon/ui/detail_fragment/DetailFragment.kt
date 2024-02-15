@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.usecase.GetAbilityDetailUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonDetailUseCase
+import com.example.retrofitpokemon.data.domain.usecase.GetPokemonSpeciesUseCase
 import com.example.retrofitpokemon.databinding.FragmentDetailBinding
 import com.example.retrofitpokemon.injection.InjectionSingleton
 import com.example.retrofitpokemon.ui.detail_fragment.adapter.AbilityAdapter
@@ -25,7 +26,8 @@ class DetailFragment : Fragment() {
     private val mViewModel: DetailFragmentViewModel =
         DetailFragmentViewModel(
             GetPokemonDetailUseCase(InjectionSingleton.provideDataSource()),
-            GetAbilityDetailUseCase(InjectionSingleton.provideDataSource())
+            GetAbilityDetailUseCase(InjectionSingleton.provideDataSource()),
+            GetPokemonSpeciesUseCase(InjectionSingleton.provideDataSource())
         )
 
     private lateinit var mBinding: FragmentDetailBinding
@@ -61,13 +63,13 @@ class DetailFragment : Fragment() {
 
     private fun setupViewModel() {
         lifecycleScope.launch {
-            mViewModel.pokemonDetailFlow.collect {
+            mViewModel.pokemonDetailStateFlow.collect {
                 setupData(it)
             }
         }
 
         lifecycleScope.launch {
-            mViewModel.abilitiesFlow.collect {
+            mViewModel.abilitiesStateFlow.collect {
                 mAdapter.refreshData(it)
             }
         }
