@@ -18,8 +18,12 @@ class AbilityDetailMapper : ResponseMapper<AbilityDetailResponse, AbilityDetailM
             }
         }
 
-        val effectEntriesModel = effectsList.filter { it.language.name == "en" }[0]
-        println(effectEntriesModel)
+        val effectEntriesModel =
+            if (effectsList.any { it.language.name == "en" }) {
+                effectsList.filter { it.language.name == "en" }[0]
+            } else {
+                EffectEntriesModel()
+            }
 
         return AbilityDetailModel(
             response.id ?: -1,

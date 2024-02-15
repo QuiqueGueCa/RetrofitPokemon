@@ -10,5 +10,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="smallWhite" parent="whiteNormal">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/txtSmallSize</item>
+    </style>
 
+    <style name="smallWhiteBold" parent="smallWhite">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

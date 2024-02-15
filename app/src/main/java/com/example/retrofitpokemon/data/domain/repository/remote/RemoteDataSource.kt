@@ -1,11 +1,13 @@
 package com.example.retrofitpokemon.data.domain.repository.remote
 
 import com.example.retrofitpokemon.data.domain.model.ability_detail.AbilityDetailModel
+import com.example.retrofitpokemon.data.domain.model.evolution_chain_detail.EvolutionChainDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon.ListPokemonModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_species.PokemonSpeciesModel
 import com.example.retrofitpokemon.data.domain.repository.DataSource
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ability_detail.AbilityDetailMapper
+import com.example.retrofitpokemon.data.domain.repository.remote.mapper.evolution_chain_detail.EvolutionChainDetailMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon.ListPokemonMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon_detail.PokemonDetailMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon_species.PokemonSpeciesMapper
@@ -53,6 +55,14 @@ class RemoteDataSource(private val remoteApiService: RemoteApiService) : DataSou
         emit(
             PokemonSpeciesMapper().fromResponse(
                 remoteApiService.getPokemonSpecies(url).body()!!
+            )
+        )
+    }
+
+    override fun getEvolutionChainDetail(url: String): Flow<EvolutionChainDetailModel> = flow {
+        emit(
+            EvolutionChainDetailMapper().fromResponse(
+                remoteApiService.getEvolutionChainDetail(url).body()!!
             )
         )
     }

@@ -33,19 +33,42 @@
             android:contentDescription="@string/imgPokemon" />
 
         <TextView
-            android:id="@+id/tvWeight"
-            style="@style/whiteBold"
+            android:id="@+id/tvEvolutions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/commonMargin"
-            android:text="@string/weight"
-            app:layout_constraintEnd_toStartOf="@id/vVerticalDivider"
+            android:text="@string/evolutionChain"
+            style="@style/whiteBold"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgPokemon" />
 
         <TextView
-            android:id="@+id/tvWeightKg"
+            android:id="@+id/tvEvolutionsContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Evoluciones"
             style="@style/whiteNormal"
+            android:layout_marginTop="@dimen/minMargin"
+            android:layout_marginHorizontal="@dimen/commonMargin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEvolutions" />
+
+
+        <TextView
+            android:id="@+id/tvWeight"
+            style="@style/smallWhiteBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/largeMargin"
+            android:text="@string/weight"
+            app:layout_constraintEnd_toStartOf="@id/vVerticalDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEvolutionsContent" />
+
+        <TextView
+            android:id="@+id/tvWeightKg"
+            style="@style/smallWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/commonMargin"
@@ -56,7 +79,7 @@
 
         <TextView
             android:id="@+id/tvWeightPounds"
-            style="@style/whiteNormal"
+            style="@style/smallWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/minMargin"
@@ -67,7 +90,7 @@
 
         <TextView
             android:id="@+id/tvWeightOunces"
-            style="@style/whiteNormal"
+            style="@style/smallWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/minMargin"
@@ -85,7 +108,7 @@
 
         <TextView
             android:id="@+id/tvHeight"
-            style="@style/whiteBold"
+            style="@style/smallWhiteBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/height"
@@ -95,7 +118,7 @@
 
         <TextView
             android:id="@+id/tvHeightMeters"
-            style="@style/whiteNormal"
+            style="@style/smallWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/commonMargin"
@@ -106,7 +129,7 @@
 
         <TextView
             android:id="@+id/tvHeightFeets"
-            style="@style/whiteNormal"
+            style="@style/smallWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/minMargin"

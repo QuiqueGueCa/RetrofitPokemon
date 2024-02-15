@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.usecase.GetAbilityDetailUseCase
+import com.example.retrofitpokemon.data.domain.usecase.GetEvolutionChainDetailUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonDetailUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonSpeciesUseCase
 import com.example.retrofitpokemon.databinding.FragmentDetailBinding
@@ -27,7 +28,8 @@ class DetailFragment : Fragment() {
         DetailFragmentViewModel(
             GetPokemonDetailUseCase(InjectionSingleton.provideDataSource()),
             GetAbilityDetailUseCase(InjectionSingleton.provideDataSource()),
-            GetPokemonSpeciesUseCase(InjectionSingleton.provideDataSource())
+            GetPokemonSpeciesUseCase(InjectionSingleton.provideDataSource()),
+            GetEvolutionChainDetailUseCase(InjectionSingleton.provideDataSource())
         )
 
     private lateinit var mBinding: FragmentDetailBinding
@@ -64,7 +66,7 @@ class DetailFragment : Fragment() {
     private fun setupViewModel() {
         lifecycleScope.launch {
             mViewModel.pokemonDetailStateFlow.collect {
-                setupData(it)
+                setupPokemonMainData(it)
             }
         }
 
@@ -73,9 +75,15 @@ class DetailFragment : Fragment() {
                 mAdapter.refreshData(it)
             }
         }
+
+        lifecycleScope.launch {
+            mViewModel.evolutionChainStateFlow.collect {
+                mBinding.tvEvolutionsContent.text = it
+            }
+        }
     }
 
-    private fun setupData(pokemonDetailModel: PokemonDetailModel) {
+    private fun setupPokemonMainData(pokemonDetailModel: PokemonDetailModel) {
         with(mBinding) {
             tvName.text = pokemonDetailModel.name
             tvWeightKg.text = pokemonDetailModel.weightKg

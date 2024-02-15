@@ -1,6 +1,7 @@
 package com.example.retrofitpokemon.data.domain.repository.remote
 
 import com.example.retrofitpokemon.data.domain.repository.remote.response.ability_detail.AbilityDetailResponse
+import com.example.retrofitpokemon.data.domain.repository.remote.response.evolution_chain_detail.EvolutionChainDetailResponse
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon.ListPokemonResponse
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.PokemonDetailResponse
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_species.PokemonSpeciesResponse
@@ -33,5 +34,8 @@ interface RemoteApiService {
         @Url url: String
     ): Response<PokemonSpeciesResponse>
 
-
+    @GET
+    suspend fun getEvolutionChainDetail(
+        @Url url: String
+    ): Response<EvolutionChainDetailResponse>
 }

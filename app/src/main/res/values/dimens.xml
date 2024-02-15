@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="txtSize">24sp</dimen>
+    <dimen name="txtSize">20sp</dimen>
     <dimen name="itemHeight">100dp</dimen>
     <dimen name="commonMargin">16dp</dimen>
     <dimen name="imgSize">250dp</dimen>
@@ -9,4 +9,6 @@
     <dimen name="itemAbilityWidth">300dp</dimen>
     <dimen name="itemAbilityHeight">100dp</dimen>
     <dimen name="dividerHorizontalWidth">330dp</dimen>
+    <dimen name="txtSmallSize">16sp</dimen>
+    <dimen name="largeMargin">16dp</dimen>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.retrofitpokemon.data.domain.repository
 
 import com.example.retrofitpokemon.data.domain.model.ability_detail.AbilityDetailModel
+import com.example.retrofitpokemon.data.domain.model.evolution_chain_detail.EvolutionChainDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon.ListPokemonModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_species.PokemonSpeciesModel
@@ -33,5 +34,9 @@ class DataProvider(private val remoteDataSource: DataSource) : DataSource {
 
     override fun getPokemonSpecies(url: String): Flow<PokemonSpeciesModel> {
         return remoteDataSource.getPokemonSpecies(url)
+    }
+
+    override fun getEvolutionChainDetail(url: String): Flow<EvolutionChainDetailModel> {
+        return remoteDataSource.getEvolutionChainDetail(url)
     }
 }
