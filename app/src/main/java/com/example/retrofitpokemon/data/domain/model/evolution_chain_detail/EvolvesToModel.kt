@@ -6,6 +6,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class EvolvesToModel(
-    var evolvesTo: ArrayList<EvolvesToModel>?,
-    var species: SpeciesModel?
+    var evolvesTo: ArrayList<EvolvesToModel> = arrayListOf(),
+    var species: SpeciesModel = SpeciesModel()
 ) : BaseModel()
