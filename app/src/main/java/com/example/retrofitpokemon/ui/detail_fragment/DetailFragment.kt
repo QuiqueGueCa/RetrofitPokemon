@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.retrofitpokemon.R
+import com.example.retrofitpokemon.data.domain.model.evolution_chain_detail.EvolutionChainDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.usecase.GetAbilityDetailUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetEvolutionChainDetailUseCase
@@ -75,6 +76,7 @@ class DetailFragment : Fragment() {
                 when (uiState) {
                     is DetailFragmentUiState.Error -> {
                         mBinding.progressBar.visibility = View.GONE
+                        mBinding.vBackground.visibility = View.GONE
                         Toast.makeText(
                             requireContext(),
                             "Ha ocurrido un error: ${uiState.msg}",
@@ -84,22 +86,32 @@ class DetailFragment : Fragment() {
 
                     DetailFragmentUiState.Loading -> {
                         mBinding.progressBar.visibility = View.VISIBLE
+                        mBinding.vBackground.visibility = View.VISIBLE
                     }
 
                     is DetailFragmentUiState.Success -> {
                         mBinding.progressBar.visibility = View.GONE
+                        mBinding.vBackground.visibility = View.GONE
 
                         setupPokemonMainData(uiState.pokemonDetailModel)
                         mAdapter.refreshData(uiState.abilities)
-                        showEvolutionChain(uiState.evolutionChain)
+                        showEvolutionChain(uiState.evolutionChainDetailModel)
                     }
                 }
             }
         }
     }
 
-    private fun showEvolutionChain(evolutionChain: ArrayList<String>) {
-        for (namePokemon in evolutionChain) {
+    private fun showEvolutionChain(evolutionChainDetailModel: EvolutionChainDetailModel) {
+
+        showList(evolutionChainDetailModel.chain.pokemonBaseName, "Base:")
+        showList(evolutionChainDetailModel.chain.pokemonFirstEvoNames, "1ª evolución:")
+        showList(evolutionChainDetailModel.chain.pokemonSecondEvoNames, "2ª evolución:")
+        showList(evolutionChainDetailModel.chain.pokemonThirdEvoNames, "3ª evolución:")
+    }
+
+    private fun showList(namesList: ArrayList<String>, mainText: String) {
+        for (namePokemon in namesList) {
             val itemBinding = ItemEvolutionBinding.inflate(layoutInflater)
             mBinding.llHorizontal.addView(itemBinding.root)
 
@@ -107,8 +119,7 @@ class DetailFragment : Fragment() {
                 val color = ResourcesCompat.getColor(resources, R.color.green, null)
                 itemBinding.root.setTextColor(color)
             }
-            itemBinding.root.text =
-                (evolutionChain.indexOf(namePokemon) + 1).toString() + " " + namePokemon
+            "$mainText $namePokemon".also { itemBinding.root.text = it }
 
             val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -120,6 +131,7 @@ class DetailFragment : Fragment() {
             itemBinding.root.layoutParams = layoutParams
         }
     }
+
 
     private fun setupPokemonMainData(pokemonDetailModel: PokemonDetailModel) {
         with(mBinding) {

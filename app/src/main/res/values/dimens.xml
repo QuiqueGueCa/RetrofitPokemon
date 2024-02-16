@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="txtSize">20sp</dimen>
-    <dimen name="itemHeight">100dp</dimen>
+    <dimen name="itemHeight">60dp</dimen>
     <dimen name="commonMargin">16dp</dimen>
     <dimen name="imgSize">250dp</dimen>
     <dimen name="minMargin">4dp</dimen>

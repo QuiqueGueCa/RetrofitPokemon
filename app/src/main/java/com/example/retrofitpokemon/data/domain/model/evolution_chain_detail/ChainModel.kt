@@ -6,6 +6,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ChainModel(
-    var evolvesTo: ArrayList<EvolvesToModel> = arrayListOf(),
+    var pokemonBaseName: ArrayList<String> = arrayListOf(),
+    var pokemonFirstEvoNames: ArrayList<String> = arrayListOf(),
+    var pokemonSecondEvoNames: ArrayList<String> = arrayListOf(),
+    var pokemonThirdEvoNames: ArrayList<String> = arrayListOf(),
     var species: SpeciesModel = SpeciesModel()
 ) : BaseModel()

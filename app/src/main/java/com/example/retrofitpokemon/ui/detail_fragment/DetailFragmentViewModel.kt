@@ -3,6 +3,7 @@ package com.example.retrofitpokemon.ui.detail_fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.retrofitpokemon.data.domain.model.ability_detail.AbilityDetailModel
+import com.example.retrofitpokemon.data.domain.model.evolution_chain_detail.EvolutionChainDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.AbilityFullDataModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.usecase.GetAbilityDetailUseCase
@@ -29,7 +30,7 @@ class DetailFragmentViewModel(
 
     private var evolutionChainUrl: String = ""
     private var pokemonDetailModel = PokemonDetailModel()
-    private val evolutions = arrayListOf<String>()
+    private var evolutionChainDetailModel = EvolutionChainDetailModel()
     private val abilities: MutableList<AbilityDetailModel> = mutableListOf()
 
 
@@ -48,7 +49,7 @@ class DetailFragmentViewModel(
                     getEvolutionChain()
 
                     _uiState.value = DetailFragmentUiState.Success(
-                        pokemonDetailModel, abilities, evolutions
+                        pokemonDetailModel, abilities, evolutionChainDetailModel
                     )
                 }
         }
@@ -56,28 +57,7 @@ class DetailFragmentViewModel(
 
     private suspend fun getEvolutionChain() {
         getEvolutionChainDetailUseCase(evolutionChainUrl).collect {
-            evolutions.add(it.chain.species.name.capitalize())
-
-            if (!it.chain.evolvesTo.isNullOrEmpty()) {
-                it.chain.evolvesTo.forEach { evolvesToModel ->
-
-                    evolutions.add(evolvesToModel.species.name.capitalize())
-
-                    if (!evolvesToModel.evolvesTo.isNullOrEmpty()) {
-                        evolvesToModel.evolvesTo.forEach { evolvesToModel2 ->
-
-                            evolutions.add(evolvesToModel2.species.name.capitalize())
-
-                            if (!evolvesToModel2.evolvesTo.isNullOrEmpty()) {
-                                evolvesToModel2.evolvesTo.forEach { evolvesToModel3 ->
-
-                                    evolutions.add(evolvesToModel3.species.name.capitalize())
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            evolutionChainDetailModel = it
         }
     }
 
