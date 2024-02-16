@@ -1,10 +1,10 @@
 package com.example.retrofitpokemon.ui.list_fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -48,9 +48,26 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
 
     private fun setupViewModel() {
         lifecycleScope.launch {
-            mViewModel.listPokemonNamesStateFlow.collect { dataSet ->
-                Log.d("TAG", "l> Observamos y refrescamos las lista con ${dataSet.size} elementos")
-                mAdapter.refreshData(dataSet)
+            mViewModel.uiState.collect { uiState ->
+                when (uiState) {
+                    is ListFragmentUiState.Error -> {
+                        mBinding.progressBar.visibility = View.GONE
+                        Toast.makeText(
+                            requireContext(),
+                            "Ha ocurrido un error: ${uiState.msg}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    ListFragmentUiState.Loading -> {
+                        mBinding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is ListFragmentUiState.Success -> {
+                        mBinding.progressBar.visibility = View.GONE
+                        mAdapter.refreshData(uiState.listPokemon)
+                    }
+                }
             }
         }
     }
@@ -69,6 +86,7 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
                 .actionListFragmentToDetailFragment(position = position)
         )
     }
+
 
     private fun setupScrollListener() {
         mBinding.recyclerView.addOnScrollListener(

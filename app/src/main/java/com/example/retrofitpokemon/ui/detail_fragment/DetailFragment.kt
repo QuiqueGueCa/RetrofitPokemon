@@ -103,7 +103,6 @@ class DetailFragment : Fragment() {
 
                     itemBinding.root.layoutParams = layoutParams
                 }
-
             }
         }
     }
