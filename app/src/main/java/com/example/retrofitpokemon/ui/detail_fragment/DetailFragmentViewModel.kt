@@ -12,6 +12,7 @@ import com.example.retrofitpokemon.data.domain.usecase.GetPokemonSpeciesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class DetailFragmentViewModel(
@@ -21,36 +22,39 @@ class DetailFragmentViewModel(
     private val getEvolutionChainDetailUseCase: GetEvolutionChainDetailUseCase
 ) : ViewModel() {
 
-    private val _pokemonDetailStateFlow = MutableStateFlow(PokemonDetailModel())
-    val pokemonDetailStateFlow: StateFlow<PokemonDetailModel> = _pokemonDetailStateFlow
 
-    private val _abilitiesStateFlow = MutableStateFlow(mutableListOf(AbilityDetailModel()))
-    val abilitiesStateFlow: StateFlow<MutableList<AbilityDetailModel>> = _abilitiesStateFlow
+    private val _uiState = MutableStateFlow<DetailFragmentUiState>(DetailFragmentUiState.Loading)
+    val uiState: StateFlow<DetailFragmentUiState> = _uiState
 
-    private val _evolutionChainStateFlow = MutableStateFlow<ArrayList<String>>(arrayListOf())
-    val evolutionChainStateFlow: StateFlow<ArrayList<String>> = _evolutionChainStateFlow
 
     private var evolutionChainUrl: String = ""
+    private var pokemonDetailModel = PokemonDetailModel()
+    private val evolutions = arrayListOf<String>()
+    private val abilities: MutableList<AbilityDetailModel> = mutableListOf()
 
 
     fun getPokemonDetail(position: Int) {
         val idPokemon = position + 1
         viewModelScope.launch(Dispatchers.IO) {
-            getPokemonDetailUseCase(idPokemon).collect {
-                _pokemonDetailStateFlow.value = it
+            getPokemonDetailUseCase(idPokemon)
+                .catch { DetailFragmentUiState.Error(it.message.orEmpty()) }
+                .collect {
+                    pokemonDetailModel = it
 
-                getAbilityDetail()
+                    getAbilityDetail()
 
-                getSpecies()
+                    getSpecies()
 
-                getEvolutionChain()
-            }
+                    getEvolutionChain()
+
+                    _uiState.value = DetailFragmentUiState.Success(
+                        pokemonDetailModel, abilities, evolutions
+                    )
+                }
         }
     }
 
     private suspend fun getEvolutionChain() {
-        val evolutions = arrayListOf<String>()
-        var evolutionsInString = ""
         getEvolutionChainDetailUseCase(evolutionChainUrl).collect {
             evolutions.add(it.chain.species.name.capitalize())
 
@@ -74,25 +78,20 @@ class DetailFragmentViewModel(
                     }
                 }
             }
-
-            _evolutionChainStateFlow.value = evolutions
         }
     }
 
     private suspend fun getSpecies() {
-        getPokemonSpeciesUseCase(_pokemonDetailStateFlow.value.species.url).collect {
-            //println(it.evolutionChain.url)
+        getPokemonSpeciesUseCase(pokemonDetailModel.species.url).collect {
             evolutionChainUrl = it.evolutionChain.url
         }
     }
 
     private suspend fun getAbilityDetail() {
-        val abilities: MutableList<AbilityDetailModel> = mutableListOf()
-        for (ability: AbilityFullDataModel in _pokemonDetailStateFlow.value.abilities) {
+        for (ability: AbilityFullDataModel in pokemonDetailModel.abilities) {
             getAbilityDetailUseCase(ability.ability.url).collect {
                 abilities.add(it)
             }
         }
-        _abilitiesStateFlow.value = abilities
     }
 }

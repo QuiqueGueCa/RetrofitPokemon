@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -68,42 +69,55 @@ class DetailFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        lifecycleScope.launch {
-            mViewModel.pokemonDetailStateFlow.collect {
-                setupPokemonMainData(it)
-            }
-        }
 
         lifecycleScope.launch {
-            mViewModel.abilitiesStateFlow.collect {
-                mAdapter.refreshData(it)
-            }
-        }
-
-        lifecycleScope.launch {
-            mViewModel.evolutionChainStateFlow.collect { evolutionNames ->
-                //mBinding.tvEvolutionsContent.text = it
-                for (namePokemon in evolutionNames) {
-                    val itemBinding = ItemEvolutionBinding.inflate(layoutInflater)
-                    mBinding.llHorizontal.addView(itemBinding.root)
-
-                    if (namePokemon == mBinding.tvName.text) {
-                        val color = ResourcesCompat.getColor(resources, R.color.green, null)
-                        itemBinding.root.setTextColor(color)
+            mViewModel.uiState.collect { uiState ->
+                when (uiState) {
+                    is DetailFragmentUiState.Error -> {
+                        mBinding.progressBar.visibility = View.GONE
+                        Toast.makeText(
+                            requireContext(),
+                            "Ha ocurrido un error: ${uiState.msg}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    itemBinding.root.text =
-                        (evolutionNames.indexOf(namePokemon) + 1).toString() + " " + namePokemon
 
-                    val layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
+                    DetailFragmentUiState.Loading -> {
+                        mBinding.progressBar.visibility = View.VISIBLE
+                    }
 
-                    layoutParams.setMargins(4, 0, 4, 0)
+                    is DetailFragmentUiState.Success -> {
+                        mBinding.progressBar.visibility = View.GONE
 
-                    itemBinding.root.layoutParams = layoutParams
+                        setupPokemonMainData(uiState.pokemonDetailModel)
+                        mAdapter.refreshData(uiState.abilities)
+                        showEvolutionChain(uiState.evolutionChain)
+                    }
                 }
             }
+        }
+    }
+
+    private fun showEvolutionChain(evolutionChain: ArrayList<String>) {
+        for (namePokemon in evolutionChain) {
+            val itemBinding = ItemEvolutionBinding.inflate(layoutInflater)
+            mBinding.llHorizontal.addView(itemBinding.root)
+
+            if (namePokemon == mBinding.tvName.text) {
+                val color = ResourcesCompat.getColor(resources, R.color.green, null)
+                itemBinding.root.setTextColor(color)
+            }
+            itemBinding.root.text =
+                (evolutionChain.indexOf(namePokemon) + 1).toString() + " " + namePokemon
+
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+
+            layoutParams.setMargins(4, 0, 4, 0)
+
+            itemBinding.root.layoutParams = layoutParams
         }
     }
 
