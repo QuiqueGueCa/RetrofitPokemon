@@ -27,8 +27,8 @@ class DetailFragmentViewModel(
     private val _abilitiesStateFlow = MutableStateFlow(mutableListOf(AbilityDetailModel()))
     val abilitiesStateFlow: StateFlow<MutableList<AbilityDetailModel>> = _abilitiesStateFlow
 
-    private val _evolutionChainStateFlow = MutableStateFlow("")
-    val evolutionChainStateFlow: StateFlow<String> = _evolutionChainStateFlow
+    private val _evolutionChainStateFlow = MutableStateFlow<ArrayList<String>>(arrayListOf())
+    val evolutionChainStateFlow: StateFlow<ArrayList<String>> = _evolutionChainStateFlow
 
     private var evolutionChainUrl: String = ""
 
@@ -52,22 +52,22 @@ class DetailFragmentViewModel(
         val evolutions = arrayListOf<String>()
         var evolutionsInString = ""
         getEvolutionChainDetailUseCase(evolutionChainUrl).collect {
-            evolutions.add(it.chain.species.name)
+            evolutions.add(it.chain.species.name.capitalize())
 
             if (!it.chain.evolvesTo.isNullOrEmpty()) {
                 it.chain.evolvesTo.forEach { evolvesToModel ->
 
-                    evolutions.add(evolvesToModel.species.name)
+                    evolutions.add(evolvesToModel.species.name.capitalize())
 
                     if (!evolvesToModel.evolvesTo.isNullOrEmpty()) {
                         evolvesToModel.evolvesTo.forEach { evolvesToModel2 ->
 
-                            evolutions.add(evolvesToModel2.species.name)
+                            evolutions.add(evolvesToModel2.species.name.capitalize())
 
                             if (!evolvesToModel2.evolvesTo.isNullOrEmpty()) {
                                 evolvesToModel2.evolvesTo.forEach { evolvesToModel3 ->
 
-                                    evolutions.add(evolvesToModel3.species.name)
+                                    evolutions.add(evolvesToModel3.species.name.capitalize())
                                 }
                             }
                         }
@@ -75,17 +75,7 @@ class DetailFragmentViewModel(
                 }
             }
 
-            for (i in 0..<evolutions.size) {
-                if (i < evolutions.size - 1) {
-
-                    evolutionsInString += evolutions[i] + " -> "
-
-                } else {
-
-                    evolutionsInString += evolutions[i]
-                }
-            }
-            _evolutionChainStateFlow.value = evolutionsInString
+            _evolutionChainStateFlow.value = evolutions
         }
     }
 

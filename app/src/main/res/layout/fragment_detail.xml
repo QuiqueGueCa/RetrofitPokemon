@@ -42,18 +42,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgPokemon" />
 
-        <TextView
-            android:id="@+id/tvEvolutionsContent"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/llHorizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Evoluciones"
-            style="@style/whiteNormal"
-            android:layout_marginTop="@dimen/minMargin"
-            android:layout_marginHorizontal="@dimen/commonMargin"
+            android:orientation="vertical"
+            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvEvolutions" />
-
 
         <TextView
             android:id="@+id/tvWeight"
@@ -64,7 +61,7 @@
             android:text="@string/weight"
             app:layout_constraintEnd_toStartOf="@id/vVerticalDivider"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvEvolutionsContent" />
+            app:layout_constraintTop_toBottomOf="@id/llHorizontal" />
 
         <TextView
             android:id="@+id/tvWeightKg"
