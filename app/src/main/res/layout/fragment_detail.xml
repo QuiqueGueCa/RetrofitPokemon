@@ -1,191 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardview_dark_background">
-
-        <TextView
-            android:id="@+id/tvName"
-            style="@style/whiteBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/commonMargin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="NombrePokemon" />
-
-        <ImageView
-            android:id="@+id/imgPokemon"
-            android:layout_width="@dimen/imgSize"
-            android:layout_height="@dimen/imgSize"
-            android:layout_marginVertical="@dimen/commonMargin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            android:contentDescription="@string/imgPokemon" />
-
-        <TextView
-            android:id="@+id/tvEvolutions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/evolutionChain"
-            style="@style/whiteBold"
-            android:layout_marginBottom="@dimen/minMargin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgPokemon"
-            app:layout_constraintBottom_toTopOf="@id/llHorizontal" />
-
-        <LinearLayout
-            android:id="@+id/llHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/commonMargin"
-            app:layout_constraintStart_toStartOf="@id/tvEvolutions"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvEvolutions"
-            app:layout_constraintBottom_toTopOf="@id/vHorizontalDividerTop" />
-
-        <View
-            android:id="@+id/vHorizontalDividerTop"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginBottom="@dimen/commonMargin"
-            android:background="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tvWeight"
-            app:layout_constraintEnd_toEndOf="@id/tvWeightOunces"
-            app:layout_constraintBottom_toTopOf="@id/tvWeight" />
-
-        <TextView
-            android:id="@+id/tvWeight"
-            style="@style/smallWhiteBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/largeMargin"
-            android:text="@string/weight"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tvWeightKg"
-            app:layout_constraintTop_toBottomOf="@id/vHorizontalDividerTop" />
-
-        <TextView
-            android:id="@+id/tvWeightKg"
-            style="@style/smallWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/commonMargin"
-            app:layout_constraintStart_toEndOf="@id/tvWeight"
-            app:layout_constraintEnd_toStartOf="@id/tvWeightPounds"
-            app:layout_constraintTop_toTopOf="@id/tvWeight"
-            tools:text="15kg" />
-
-        <TextView
-            android:id="@+id/tvWeightPounds"
-            style="@style/smallWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/commonMargin"
-            app:layout_constraintStart_toEndOf="@id/tvWeightKg"
-            app:layout_constraintEnd_toStartOf="@id/tvWeightOunces"
-            app:layout_constraintTop_toTopOf="@id/tvWeight"
-            tools:text="23lb" />
-
-        <TextView
-            android:id="@+id/tvWeightOunces"
-            style="@style/smallWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/commonMargin"
-            app:layout_constraintStart_toEndOf="@id/tvWeightPounds"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvWeight"
-            tools:text="15onzas" />
+        android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/tvHeight"
-            style="@style/smallWhiteBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/height"
-            android:layout_marginTop="@dimen/largeMargin"
-            app:layout_constraintStart_toStartOf="@id/tvWeight"
-            app:layout_constraintTop_toBottomOf="@id/tvWeight" />
-
-        <TextView
-            android:id="@+id/tvHeightMeters"
-            style="@style/smallWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/tvWeightKg"
-            app:layout_constraintTop_toTopOf="@id/tvHeight"
-            tools:text="15m" />
-
-        <TextView
-            android:id="@+id/tvHeightFeets"
-            style="@style/smallWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/tvWeightPounds"
-            app:layout_constraintTop_toTopOf="@id/tvHeight"
-            tools:text="15pies" />
-
-
-        <View
-            android:id="@+id/vHorizontalDividerBot"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginVertical="@dimen/commonMargin"
-            android:background="@color/white"
-            app:layout_constraintStart_toStartOf="@id/vHorizontalDividerTop"
-            app:layout_constraintEnd_toEndOf="@id/vHorizontalDividerTop"
-            app:layout_constraintTop_toBottomOf="@id/tvHeight" />
-
-        <TextView
-            android:id="@+id/tvAbilities"
-            style="@style/whiteBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/commonMargin"
-            android:text="@string/abilities"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vHorizontalDividerBot" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/minMargin"
-            android:layout_marginBottom="@dimen/commonMargin"
-            app:layout_constraintTop_toBottomOf="@id/tvAbilities"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/item_ability" />
-
-        <View
-            android:id="@+id/vBackground"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/cardview_dark_background" />
+            android:background="@color/cardview_dark_background">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/whiteBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/commonMargin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="NombrePokemon" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+            <ImageView
+                android:id="@+id/imgPokemon"
+                android:layout_width="@dimen/imgSize"
+                android:layout_height="@dimen/imgSize"
+                android:layout_marginVertical="@dimen/commonMargin"
+                android:contentDescription="@string/imgPokemon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+            <TextView
+                android:id="@+id/tvEvolutions"
+                style="@style/whiteBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/minMargin"
+                android:text="@string/evolutionChain"
+                app:layout_constraintBottom_toTopOf="@id/llHorizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgPokemon" />
+
+            <LinearLayout
+                android:id="@+id/llHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/commonMargin"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/vHorizontalDividerTop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvEvolutions"
+                app:layout_constraintTop_toBottomOf="@id/tvEvolutions" />
+
+            <View
+                android:id="@+id/vHorizontalDividerTop"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginBottom="@dimen/commonMargin"
+                android:background="@color/white"
+                app:layout_constraintBottom_toTopOf="@id/tvWeight"
+                app:layout_constraintEnd_toEndOf="@id/tvWeightOunces"
+                app:layout_constraintStart_toStartOf="@id/tvWeight" />
+
+            <TextView
+                android:id="@+id/tvWeight"
+                style="@style/smallWhiteBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/largeMargin"
+                android:text="@string/weight"
+                app:layout_constraintEnd_toStartOf="@id/tvWeightKg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vHorizontalDividerTop" />
+
+            <TextView
+                android:id="@+id/tvWeightKg"
+                style="@style/smallWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/commonMargin"
+                app:layout_constraintEnd_toStartOf="@id/tvWeightPounds"
+                app:layout_constraintStart_toEndOf="@id/tvWeight"
+                app:layout_constraintTop_toTopOf="@id/tvWeight"
+                tools:text="15kg" />
+
+            <TextView
+                android:id="@+id/tvWeightPounds"
+                style="@style/smallWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/commonMargin"
+                app:layout_constraintEnd_toStartOf="@id/tvWeightOunces"
+                app:layout_constraintStart_toEndOf="@id/tvWeightKg"
+                app:layout_constraintTop_toTopOf="@id/tvWeight"
+                tools:text="23lb" />
+
+            <TextView
+                android:id="@+id/tvWeightOunces"
+                style="@style/smallWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/commonMargin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvWeightPounds"
+                app:layout_constraintTop_toTopOf="@id/tvWeight"
+                tools:text="15onzas" />
+
+
+            <TextView
+                android:id="@+id/tvHeight"
+                style="@style/smallWhiteBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:text="@string/height"
+                app:layout_constraintStart_toStartOf="@id/tvWeight"
+                app:layout_constraintTop_toBottomOf="@id/tvWeight" />
+
+            <TextView
+                android:id="@+id/tvHeightMeters"
+                style="@style/smallWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tvWeightKg"
+                app:layout_constraintTop_toTopOf="@id/tvHeight"
+                tools:text="15m" />
+
+            <TextView
+                android:id="@+id/tvHeightFeets"
+                style="@style/smallWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tvWeightPounds"
+                app:layout_constraintTop_toTopOf="@id/tvHeight"
+                tools:text="15pies" />
+
+
+            <View
+                android:id="@+id/vHorizontalDividerBot"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginVertical="@dimen/commonMargin"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/vHorizontalDividerTop"
+                app:layout_constraintStart_toStartOf="@id/vHorizontalDividerTop"
+                app:layout_constraintTop_toBottomOf="@id/tvHeight" />
+
+            <TextView
+                android:id="@+id/tvAbilities"
+                style="@style/whiteBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/commonMargin"
+                android:text="@string/abilities"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vHorizontalDividerBot" />
+
+
+            <LinearLayout
+                android:id="@+id/llAbilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/commonMargin"
+                android:layout_marginTop="@dimen/minMargin"
+                android:layout_marginBottom="@dimen/commonMargin"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAbilities"
+                tools:listitem="@layout/item_ability" />
+
+            <View
+                android:id="@+id/vBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/cardview_dark_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</androidx.core.widget.NestedScrollView>
