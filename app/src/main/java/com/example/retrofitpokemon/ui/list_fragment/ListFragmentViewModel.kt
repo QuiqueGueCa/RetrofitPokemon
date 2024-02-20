@@ -15,19 +15,22 @@ class ListFragmentViewModel(private val getListPokemonUseCase: GetListPokemonUse
     private val _uiState = MutableStateFlow<ListFragmentUiState>(ListFragmentUiState.Loading)
     val uiState: StateFlow<ListFragmentUiState> = _uiState
 
-    private var page = 0
+    private var page = -1
     private val pageSize = 30
     private var namesList: ArrayList<String> = arrayListOf()
     fun getListPokemon() {
-        viewModelScope.launch(Dispatchers.IO) {
-            getListPokemonUseCase(pageSize, page * pageSize)
-                .catch { ListFragmentUiState.Error(it.message.orEmpty()) }
-                .collect {
-                    val arrayList = ArrayList(it.results.map { model -> model.name })
-                    namesList.addAll(arrayList)
-                    _uiState.value = ListFragmentUiState.Success(namesList)
-                }
+        if (_uiState.value != ListFragmentUiState.Loading || page == -1) {
             page++
+            _uiState.value = ListFragmentUiState.Loading
+            viewModelScope.launch(Dispatchers.IO) {
+                getListPokemonUseCase(pageSize, page * pageSize)
+                    .catch { ListFragmentUiState.Error(it.message.orEmpty()) }
+                    .collect {
+                        val arrayList = ArrayList(it.results.map { model -> model.name })
+                        namesList.addAll(arrayList)
+                        _uiState.value = ListFragmentUiState.Success(namesList)
+                    }
+            }
         }
     }
 }

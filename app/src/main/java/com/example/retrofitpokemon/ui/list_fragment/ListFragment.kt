@@ -61,10 +61,12 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
 
                     ListFragmentUiState.Loading -> {
                         mBinding.progressBar.visibility = View.VISIBLE
+                        mBinding.recyclerView.visibility = View.GONE
                     }
 
                     is ListFragmentUiState.Success -> {
                         mBinding.progressBar.visibility = View.GONE
+                        mBinding.recyclerView.visibility = View.VISIBLE
                         mAdapter.refreshData(uiState.listPokemon)
                     }
                 }
@@ -87,10 +89,10 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
         )
     }
 
-
     private fun setupScrollListener() {
         mBinding.recyclerView.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
+
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
@@ -101,7 +103,6 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
                         (layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition() ?: 0
 
                     if (firstVisibleItemPosition + visibleItemCount >= totalItemCount) {
-                        setupViewModel()
                         mViewModel.getListPokemon()
                     }
                 }

@@ -35,6 +35,8 @@ class PokemonAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.tvNamePokemon.text = dataSet[position]
+        "#${position + 1}".also { holder.binding.tvIdPokemon.text = it }
+
         holder.setListener(position)
     }
 

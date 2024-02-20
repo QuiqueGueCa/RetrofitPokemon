@@ -8,6 +8,17 @@
     android:background="@drawable/background_item_pokemon">
 
     <TextView
+        android:id="@+id/tvIdPokemon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="#1"
+        android:textSize="@dimen/txtSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvNamePokemon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
         android:id="@+id/tvNamePokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

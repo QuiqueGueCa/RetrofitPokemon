@@ -33,6 +33,19 @@ class RemoteDataSource(private val remoteApiService: RemoteApiService) : DataSou
                 remoteApiService.getListPokemon(limit, offset).body()!!
             )
         )
+        /*try{
+            val response = remoteApiService.getListPokemon(limit, offset)
+            if (response.isSuccessful){
+               response.body()?.let {
+                   emit(ListPokemonMapper().fromResponse(it))
+               }
+                throw Exception("Pokemon error")
+            }
+            throw Exception("Pokemon not found")
+
+        }catch (e: Exception){
+
+        }*/
     }
 
     override fun getPokemonDetail(idPokemon: Int): Flow<PokemonDetailModel> = flow {

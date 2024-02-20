@@ -17,6 +17,11 @@ class ListPokemonMapper : ResponseMapper<ListPokemonResponse, ListPokemonModel> 
                 resultModel.add(pokemonMapper.fromResponse(getListPokemonResultResponse))
             }
         }
+        /*var id = 1
+        for (rm in resultModel){
+            rm.id = id
+            id++
+        }*/
 
         return ListPokemonModel(
             response.count ?: -1,
