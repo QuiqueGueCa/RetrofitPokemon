@@ -13,11 +13,9 @@ class PokemonAdapter(
 ) :
     RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
-
     interface PokemonListener {
         fun onPokemonClick(position: Int)
     }
-
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemPokemonBinding.bind(view)
