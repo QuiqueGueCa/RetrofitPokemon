@@ -12,6 +12,8 @@ abstract class BaseApiCallService {
         try {
             response = call.invoke()
 
+//            return BaseResponse.Error(ErrorModel(error = "Error forzado", errorCode = "F", message = "Error forzado"))
+
 
             return if (!response.isSuccessful) {
                 val errorResponse = mapErrorResponse(response)

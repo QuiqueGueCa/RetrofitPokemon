@@ -11,72 +11,67 @@ import com.example.retrofitpokemon.data.domain.repository.remote.mapper.evolutio
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon.ListPokemonMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon_detail.PokemonDetailMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.pokemon_species.PokemonSpeciesMapper
+import com.example.retrofitpokemon.data.domain.repository.remote.response.BaseResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class RemoteDataSource(private val remoteApiService: RemoteApiService) : DataSource {
+class RemoteDataSource(private val apiCallService: ApiCallService) : DataSource {
     companion object {
         private var INSTANCE: RemoteDataSource? = null
 
         @Synchronized
-        fun getInstance(remoteApiService: RemoteApiService): RemoteDataSource {
+        fun getInstance(apiCallService: ApiCallService): RemoteDataSource {
             if (INSTANCE == null) {
-                INSTANCE = RemoteDataSource(remoteApiService)
+                INSTANCE = RemoteDataSource(apiCallService)
             }
             return INSTANCE!!
         }
     }
 
-    override fun getListPokemon(limit: Int, offset: Int): Flow<ListPokemonModel> = flow {
-        emit(
-            ListPokemonMapper().fromResponse(
-                remoteApiService.getListPokemon(limit, offset).body()!!
-            )
-        )
-        /*try{
-            val response = remoteApiService.getListPokemon(limit, offset)
-            if (response.isSuccessful){
-               response.body()?.let {
-                   emit(ListPokemonMapper().fromResponse(it))
-               }
-                throw Exception("Pokemon error")
+    override fun getListPokemon(limit: Int, offset: Int): Flow<BaseResponse<ListPokemonModel>> =
+        flow {
+            val apiResult = apiCallService.getListPokemon(limit, offset)
+            if (apiResult is BaseResponse.Success) {
+                emit(BaseResponse.Success(ListPokemonMapper().fromResponse(apiResult.data)))
+            } else if (apiResult is BaseResponse.Error) {
+                emit(BaseResponse.Error(apiResult.error))
             }
-            throw Exception("Pokemon not found")
+        }
 
-        }catch (e: Exception){
-
-        }*/
+    override fun getPokemonDetail(idPokemon: Int): Flow<BaseResponse<PokemonDetailModel>> = flow {
+        val apiResult = apiCallService.getPokemonDetail(idPokemon)
+        if (apiResult is BaseResponse.Success) {
+            emit(BaseResponse.Success(PokemonDetailMapper().fromResponse(apiResult.data)))
+        } else if (apiResult is BaseResponse.Error) {
+            emit(BaseResponse.Error(apiResult.error))
+        }
     }
 
-    override fun getPokemonDetail(idPokemon: Int): Flow<PokemonDetailModel> = flow {
-        emit(
-            PokemonDetailMapper().fromResponse(
-                remoteApiService.getPokemonDetail(idPokemon).body()!!
-            )
-        )
+    override fun getAbilityDetail(url: String): Flow<BaseResponse<AbilityDetailModel>> = flow {
+        val apiResult = apiCallService.getAbilityDetail(url)
+        if (apiResult is BaseResponse.Success) {
+            emit(BaseResponse.Success(AbilityDetailMapper().fromResponse(apiResult.data)))
+        } else if (apiResult is BaseResponse.Error) {
+            emit(BaseResponse.Error(apiResult.error))
+        }
     }
 
-    override fun getAbilityDetail(url: String): Flow<AbilityDetailModel> = flow {
-        emit(
-            AbilityDetailMapper().fromResponse(
-                remoteApiService.getAbilityDetail(url).body()!!
-            )
-        )
+    override fun getPokemonSpecies(url: String): Flow<BaseResponse<PokemonSpeciesModel>> = flow {
+        val apiResult = apiCallService.getPokemonSpecies(url)
+        if (apiResult is BaseResponse.Success) {
+            emit(BaseResponse.Success(PokemonSpeciesMapper().fromResponse(apiResult.data)))
+        } else if (apiResult is BaseResponse.Error) {
+            emit(BaseResponse.Error(apiResult.error))
+        }
     }
 
-    override fun getPokemonSpecies(url: String): Flow<PokemonSpeciesModel> = flow {
-        emit(
-            PokemonSpeciesMapper().fromResponse(
-                remoteApiService.getPokemonSpecies(url).body()!!
-            )
-        )
-    }
-
-    override fun getEvolutionChainDetail(url: String): Flow<EvolutionChainDetailModel> = flow {
-        emit(
-            EvolutionChainDetailMapper().fromResponse(
-                remoteApiService.getEvolutionChainDetail(url).body()!!
-            )
-        )
-    }
+    override fun getEvolutionChainDetail(url: String): Flow<BaseResponse<EvolutionChainDetailModel>> =
+        flow {
+            val apiResult = apiCallService.getEvolutionChainDetail(url)
+            if (apiResult is BaseResponse.Success) {
+                emit(BaseResponse.Success(EvolutionChainDetailMapper().fromResponse(apiResult.data)))
+            } else if (apiResult is BaseResponse.Error) {
+                emit(BaseResponse.Error(apiResult.error))
+            }
+        }
 }
