@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
@@ -194,5 +195,95 @@ class DetailFragment : Fragment() {
             .load(pokemonDetailModel.spritesModel.sprite)
             .apply(RequestOptions().centerCrop())
             .into(mBinding.imgPokemon)
+
+        setupTypeIcon(pokemonDetailModel.types[0].typeModel.name, mBinding.imgFirstType)
+
+        if (pokemonDetailModel.types.size == 2) {
+            setupTypeIcon(pokemonDetailModel.types[1].typeModel.name, mBinding.imgSecondType)
+        }
+    }
+
+    private fun setupTypeIcon(type: String, imgType: ImageView) {
+        when (type) {
+            "normal" -> {
+                imgType.setImageResource(R.drawable.ic_normal)
+            }
+
+            "fighting" -> {
+                imgType.setImageResource(R.drawable.ic_fighting)
+            }
+
+            "flying" -> {
+                imgType.setImageResource(R.drawable.ic_flying)
+            }
+
+            "poison" -> {
+                imgType.setImageResource(R.drawable.ic_poison)
+            }
+
+            "ground" -> {
+                imgType.setImageResource(R.drawable.ic_ground)
+            }
+
+            "rock" -> {
+                imgType.setImageResource(R.drawable.ic_rock)
+            }
+
+            "bug" -> {
+                imgType.setImageResource(R.drawable.ic_bug)
+            }
+
+            "ghost" -> {
+                imgType.setImageResource(R.drawable.ic_ghost)
+            }
+
+            "steel" -> {
+                imgType.setImageResource(R.drawable.ic_steel)
+            }
+
+            "fire" -> {
+                imgType.setImageResource(R.drawable.ic_fire)
+            }
+
+            "water" -> {
+                imgType.setImageResource(R.drawable.ic_water)
+            }
+
+            "grass" -> {
+                imgType.setImageResource(R.drawable.ic_grass)
+            }
+
+            "electric" -> {
+                imgType.setImageResource(R.drawable.ic_electric)
+            }
+
+            "psychic" -> {
+                imgType.setImageResource(R.drawable.ic_psychic)
+            }
+
+            "ice" -> {
+                imgType.setImageResource(R.drawable.ic_ice)
+            }
+
+            "dragon" -> {
+                imgType.setImageResource(R.drawable.ic_dragon)
+            }
+
+            "dark" -> {
+                imgType.setImageResource(R.drawable.ic_dark)
+            }
+
+            "fairy" -> {
+                imgType.setImageResource(R.drawable.ic_fairy)
+            }
+
+            "unknown" -> {
+                imgType.setImageResource(R.drawable.ic_normal)
+            }
+
+            "shadow" -> {
+                imgType.setImageResource(R.drawable.ic_shadow)
+            }
+        }
     }
 }
