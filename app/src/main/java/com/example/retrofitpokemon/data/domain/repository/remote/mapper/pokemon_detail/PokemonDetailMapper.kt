@@ -4,12 +4,14 @@ import com.example.retrofitpokemon.data.domain.model.common.SpeciesModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.AbilityFullDataModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.SpritesModel
+import com.example.retrofitpokemon.data.domain.model.pokemon_detail.TypeDetailModel
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.ResponseMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.mapper.common.SpeciesMapper
 import com.example.retrofitpokemon.data.domain.repository.remote.response.common.SpeciesResponse
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.AbilityFullDataResponse
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.PokemonDetailResponse
 import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.SpritesResponse
+import com.example.retrofitpokemon.data.domain.repository.remote.response.pokemon_detail.TypeDetailResponse
 import java.text.DecimalFormat
 import java.util.Locale
 
@@ -26,9 +28,21 @@ class PokemonDetailMapper : ResponseMapper<PokemonDetailResponse, PokemonDetailM
             convertHeightToFeets(response.height) ?: "",
             setupSprite(response.sprites),
             setupAbilities(response.abilities),
-            setupSpecies(response.species)
-
+            setupSpecies(response.species),
+            setupTypeList(response.types)
         )
+    }
+
+    private fun setupTypeList(types: List<TypeDetailResponse>?): MutableList<TypeDetailModel> {
+        val typeDetailMapper = TypeDetailMapper()
+        val listTypeDetailModel = mutableListOf<TypeDetailModel>()
+
+        if (!types.isNullOrEmpty()) {
+            types.forEach {
+                listTypeDetailModel.add(typeDetailMapper.fromResponse(it))
+            }
+        }
+        return listTypeDetailModel
     }
 
     private fun setupSpecies(species: SpeciesResponse?): SpeciesModel {

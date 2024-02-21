@@ -42,7 +42,7 @@ data class PokemonDetailResponse(
     @SerializedName("stats")
     val stats: List<Any>?,
     @SerializedName("types")
-    val types: List<Any>?,
+    val types: List<TypeDetailResponse>?,
     //Expresada en hectogramos
     @SerializedName("weight")
     val weight: Int?,

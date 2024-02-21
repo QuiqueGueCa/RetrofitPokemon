@@ -15,5 +15,6 @@ data class PokemonDetailModel(
     val heightFeets: String = "",
     val spritesModel: SpritesModel = SpritesModel(),
     val abilities: MutableList<AbilityFullDataModel> = mutableListOf(),
-    val species: SpeciesModel = SpeciesModel()
+    val species: SpeciesModel = SpeciesModel(),
+    val types: MutableList<TypeDetailModel> = mutableListOf()
 ) : BaseModel()
