@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -37,19 +36,52 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvName" />
-            
+
+            <TextView
+                android:id="@+id/tvTypes"
+                style="@style/whiteBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/commonMargin"
+                android:text="@string/types"
+                app:layout_constraintBottom_toTopOf="@id/tvEvolutions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgPokemon" />
+
+            <ImageView
+                android:id="@+id/imgFirstType"
+                android:layout_width="@dimen/icTypeWidth"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_fire"
+                android:layout_marginStart="@dimen/commonMargin"
+                app:layout_constraintStart_toEndOf="@id/tvTypes"
+                app:layout_constraintTop_toTopOf="@id/tvTypes"
+                app:layout_constraintBottom_toBottomOf="@id/tvTypes"
+                app:layout_constraintEnd_toStartOf="@id/imgSecondType" />
+
+            <ImageView
+                android:id="@+id/imgSecondType"
+                android:layout_width="@dimen/icTypeWidth"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_water"
+                android:layout_marginStart="@dimen/minMargin"
+                app:layout_constraintStart_toEndOf="@id/imgFirstType"
+                app:layout_constraintTop_toTopOf="@id/imgFirstType"
+                app:layout_constraintBottom_toBottomOf="@id/imgFirstType" />
 
             <TextView
                 android:id="@+id/tvEvolutions"
                 style="@style/whiteBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/commonMargin"
                 android:layout_marginBottom="@dimen/minMargin"
                 android:text="@string/evolutionChain"
                 app:layout_constraintBottom_toTopOf="@id/llHorizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgPokemon" />
+                app:layout_constraintTop_toBottomOf="@id/tvTypes" />
 
             <LinearLayout
                 android:id="@+id/llHorizontal"
@@ -182,15 +214,15 @@
                 app:layout_constraintTop_toBottomOf="@id/tvAbilities"
                 tools:listitem="@layout/item_ability" />
 
-            <!--            <View-->
-            <!--                android:id="@+id/vBackground"-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="0dp"-->
-            <!--                android:background="@color/cardview_dark_background"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent" />-->
+            <View
+                android:id="@+id/vBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/cardview_dark_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

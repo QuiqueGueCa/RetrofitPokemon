@@ -11,4 +11,5 @@
     <dimen name="dividerHorizontalWidth">330dp</dimen>
     <dimen name="txtSmallSize">16sp</dimen>
     <dimen name="largeMargin">16dp</dimen>
+    <dimen name="icTypeWidth">35dp</dimen>
 </resources>
