@@ -2,9 +2,13 @@ package com.example.retrofitpokemon.ui.list_fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.retrofitpokemon.data.domain.model.error.ErrorModel
+import com.example.retrofitpokemon.data.domain.repository.remote.response.BaseResponse
 import com.example.retrofitpokemon.data.domain.usecase.GetListPokemonUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -15,6 +19,9 @@ class ListFragmentViewModel(private val getListPokemonUseCase: GetListPokemonUse
     private val _uiState = MutableStateFlow<ListFragmentUiState>(ListFragmentUiState.Loading)
     val uiState: StateFlow<ListFragmentUiState> = _uiState
 
+    private val listPokemonErrorMutableSharedFlow = MutableSharedFlow<ErrorModel>()
+    val listPokemonErrorSharedFlow: SharedFlow<ErrorModel> = listPokemonErrorMutableSharedFlow
+
     private var page = -1
     private val pageSize = 30
     private var namesList: ArrayList<String> = arrayListOf()
@@ -22,13 +29,23 @@ class ListFragmentViewModel(private val getListPokemonUseCase: GetListPokemonUse
         if (_uiState.value != ListFragmentUiState.Loading || page == -1) {
             page++
             _uiState.value = ListFragmentUiState.Loading
+
             viewModelScope.launch(Dispatchers.IO) {
                 getListPokemonUseCase(pageSize, page * pageSize)
-                    .catch { ListFragmentUiState.Error(it.message.orEmpty()) }
+                    .catch { /*_uiState.value =*/ ListFragmentUiState.Error(it.message.orEmpty()) }
                     .collect {
-                        val arrayList = ArrayList(it.results.map { model -> model.name })
-                        namesList.addAll(arrayList)
-                        _uiState.value = ListFragmentUiState.Success(namesList)
+                        when (it) {
+                            is BaseResponse.Error -> {
+                                listPokemonErrorMutableSharedFlow.emit(it.error)
+                            }
+
+                            is BaseResponse.Success -> {
+                                val arrayList =
+                                    ArrayList(it.data.results.map { model -> model.name })
+                                namesList.addAll(arrayList)
+                                _uiState.value = ListFragmentUiState.Success(namesList)
+                            }
+                        }
                     }
             }
         }

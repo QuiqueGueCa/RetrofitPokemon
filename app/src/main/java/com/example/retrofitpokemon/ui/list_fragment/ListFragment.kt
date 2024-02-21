@@ -47,6 +47,25 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
     }
 
     private fun setupViewModel() {
+
+        uiStateBehaviour()
+
+        showLoadingError()
+    }
+
+    private fun showLoadingError() {
+        lifecycleScope.launch {
+            mViewModel.listPokemonErrorSharedFlow.collect { error ->
+                Toast.makeText(
+                    requireContext(),
+                    error.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun uiStateBehaviour() {
         lifecycleScope.launch {
             mViewModel.uiState.collect { uiState ->
                 when (uiState) {
