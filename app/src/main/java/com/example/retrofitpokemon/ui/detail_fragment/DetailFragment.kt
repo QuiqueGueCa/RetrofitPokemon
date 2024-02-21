@@ -59,12 +59,57 @@ class DetailFragment : Fragment() {
 
     private fun setupViewModel() {
 
+        uiStateBehaviour()
+
+        showLoadingErrors()
+    }
+
+    private fun showLoadingErrors() {
+        lifecycleScope.launch {
+            mViewModel.pokemonDetailErrorSharedFlow.collect { error ->
+                Toast.makeText(
+                    requireContext(),
+                    error.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        lifecycleScope.launch {
+            mViewModel.speciesErrorSharedFlow.collect { error ->
+                Toast.makeText(
+                    requireContext(),
+                    error.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        lifecycleScope.launch {
+            mViewModel.abilityDetailErrorSharedFlow.collect { error ->
+                Toast.makeText(
+                    requireContext(),
+                    error.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        lifecycleScope.launch {
+            mViewModel.evolutionChainErrorSharedFlow.collect { error ->
+                Toast.makeText(
+                    requireContext(),
+                    error.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun uiStateBehaviour() {
         lifecycleScope.launch {
             mViewModel.uiState.collect { uiState ->
                 when (uiState) {
                     is DetailFragmentUiState.Error -> {
                         mBinding.progressBar.visibility = View.GONE
-                        mBinding.vBackground.visibility = View.GONE
+                        mBinding.vBackground.visibility = View.VISIBLE
                         Toast.makeText(
                             requireContext(),
                             "Ha ocurrido un error: ${uiState.msg}",

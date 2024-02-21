@@ -3,17 +3,20 @@ package com.example.retrofitpokemon.ui.detail_fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.retrofitpokemon.data.domain.model.ability_detail.AbilityDetailModel
+import com.example.retrofitpokemon.data.domain.model.error.ErrorModel
 import com.example.retrofitpokemon.data.domain.model.evolution_chain_detail.EvolutionChainDetailModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.AbilityFullDataModel
 import com.example.retrofitpokemon.data.domain.model.pokemon_detail.PokemonDetailModel
+import com.example.retrofitpokemon.data.domain.repository.remote.response.BaseResponse
 import com.example.retrofitpokemon.data.domain.usecase.GetAbilityDetailUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetEvolutionChainDetailUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonDetailUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonSpeciesUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class DetailFragmentViewModel(
@@ -23,9 +26,20 @@ class DetailFragmentViewModel(
     private val getEvolutionChainDetailUseCase: GetEvolutionChainDetailUseCase
 ) : ViewModel() {
 
-
     private val _uiState = MutableStateFlow<DetailFragmentUiState>(DetailFragmentUiState.Loading)
     val uiState: StateFlow<DetailFragmentUiState> = _uiState
+
+    private val pokemonDetailErrorMutableSharedFlow = MutableSharedFlow<ErrorModel>()
+    val pokemonDetailErrorSharedFlow: SharedFlow<ErrorModel> = pokemonDetailErrorMutableSharedFlow
+
+    private val evolutionChainErrorMutableSharedFlow = MutableSharedFlow<ErrorModel>()
+    val evolutionChainErrorSharedFlow: SharedFlow<ErrorModel> = evolutionChainErrorMutableSharedFlow
+
+    private val speciesErrorMutableSharedFlow = MutableSharedFlow<ErrorModel>()
+    val speciesErrorSharedFlow: SharedFlow<ErrorModel> = speciesErrorMutableSharedFlow
+
+    private val abilityDetailErrorMutableSharedFlow = MutableSharedFlow<ErrorModel>()
+    val abilityDetailErrorSharedFlow: SharedFlow<ErrorModel> = abilityDetailErrorMutableSharedFlow
 
 
     private var evolutionChainUrl: String = ""
@@ -38,39 +52,71 @@ class DetailFragmentViewModel(
         val idPokemon = position + 1
         viewModelScope.launch(Dispatchers.IO) {
             getPokemonDetailUseCase(idPokemon)
-                .catch { DetailFragmentUiState.Error(it.message.orEmpty()) }
                 .collect {
-                    pokemonDetailModel = it
+                    when (it) {
+                        is BaseResponse.Error -> {
+                            //pokemonDetailErrorMutableSharedFlow.emit(it.error)
+                            _uiState.value = DetailFragmentUiState.Error(it.error.message)
+                        }
 
-                    getAbilityDetail()
+                        is BaseResponse.Success -> {
+                            pokemonDetailModel = it.data
+                            getAbilityDetail()
 
-                    getSpecies()
+                            getSpecies()
 
-                    getEvolutionChain()
+                            getEvolutionChain()
 
-                    _uiState.value = DetailFragmentUiState.Success(
-                        pokemonDetailModel, abilities, evolutionChainDetailModel
-                    )
+                            _uiState.value = DetailFragmentUiState.Success(
+                                pokemonDetailModel, abilities, evolutionChainDetailModel
+                            )
+                        }
+                    }
                 }
         }
     }
 
     private suspend fun getEvolutionChain() {
         getEvolutionChainDetailUseCase(evolutionChainUrl).collect {
-            evolutionChainDetailModel = it
+            when (it) {
+                is BaseResponse.Error -> {
+                    evolutionChainErrorMutableSharedFlow.emit(it.error)
+                }
+
+                is BaseResponse.Success -> {
+                    evolutionChainDetailModel = it.data
+                }
+            }
         }
     }
 
     private suspend fun getSpecies() {
         getPokemonSpeciesUseCase(pokemonDetailModel.species.url).collect {
-            evolutionChainUrl = it.evolutionChain.url
+            when (it) {
+                is BaseResponse.Error -> {
+                    speciesErrorMutableSharedFlow.emit(it.error)
+                }
+
+                is BaseResponse.Success -> {
+                    evolutionChainUrl = it.data.evolutionChain.url
+                }
+            }
         }
     }
 
     private suspend fun getAbilityDetail() {
         for (ability: AbilityFullDataModel in pokemonDetailModel.abilities) {
             getAbilityDetailUseCase(ability.ability.url).collect {
-                abilities.add(it)
+                when (it) {
+                    is BaseResponse.Error -> {
+                        abilityDetailErrorMutableSharedFlow.emit(it.error)
+                    }
+
+                    is BaseResponse.Success -> {
+                        abilities.add(it.data)
+                    }
+                }
+
             }
         }
     }

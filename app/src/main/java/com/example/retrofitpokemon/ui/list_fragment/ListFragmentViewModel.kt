@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class ListFragmentViewModel(private val getListPokemonUseCase: GetListPokemonUseCase) :
@@ -32,11 +31,11 @@ class ListFragmentViewModel(private val getListPokemonUseCase: GetListPokemonUse
 
             viewModelScope.launch(Dispatchers.IO) {
                 getListPokemonUseCase(pageSize, page * pageSize)
-                    .catch { /*_uiState.value =*/ ListFragmentUiState.Error(it.message.orEmpty()) }
                     .collect {
                         when (it) {
                             is BaseResponse.Error -> {
-                                listPokemonErrorMutableSharedFlow.emit(it.error)
+                                //listPokemonErrorMutableSharedFlow.emit(it.error)
+                                _uiState.value = ListFragmentUiState.Error(it.error.message)
                             }
 
                             is BaseResponse.Success -> {
