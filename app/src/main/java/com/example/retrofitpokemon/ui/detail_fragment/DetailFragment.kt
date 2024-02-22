@@ -196,7 +196,9 @@ class DetailFragment : Fragment() {
             .apply(RequestOptions().centerCrop())
             .into(mBinding.imgPokemon)
 
-        setupTypeIcon(pokemonDetailModel.types[0].typeModel.name, mBinding.imgFirstType)
+        if (pokemonDetailModel.types.isNotEmpty()) {
+            setupTypeIcon(pokemonDetailModel.types[0].typeModel.name, mBinding.imgFirstType)
+        }
 
         if (pokemonDetailModel.types.size == 2) {
             setupTypeIcon(pokemonDetailModel.types[1].typeModel.name, mBinding.imgSecondType)

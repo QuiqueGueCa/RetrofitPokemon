@@ -13,19 +13,20 @@
         android:layout_height="wrap_content"
         tools:text="#1"
         android:textSize="@dimen/txtSize"
+        android:layout_marginStart="@dimen/commonMargin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tvNamePokemon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/tvNamePokemon"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="NombrePokemon"
         android:textSize="@dimen/txtSize"
+        android:layout_marginStart="@dimen/commonMargin"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvIdPokemon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
