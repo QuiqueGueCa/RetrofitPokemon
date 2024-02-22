@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitpokemon.data.domain.usecase.GetListPokemonUseCase
+import com.example.retrofitpokemon.data.domain.usecase.GetPokemonDetailUseCase
 import com.example.retrofitpokemon.databinding.FragmentListBinding
 import com.example.retrofitpokemon.injection.InjectionSingleton
 import com.example.retrofitpokemon.ui.list_fragment.adapter.PokemonAdapter
@@ -21,7 +22,10 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
     private lateinit var mBinding: FragmentListBinding
     private lateinit var mAdapter: PokemonAdapter
     private val mViewModel: ListFragmentViewModel =
-        ListFragmentViewModel(GetListPokemonUseCase(InjectionSingleton.provideDataSource()))
+        ListFragmentViewModel(
+            GetListPokemonUseCase(InjectionSingleton.provideDataSource()),
+            GetPokemonDetailUseCase(InjectionSingleton.provideDataSource())
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,17 +35,20 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
 
         mBinding = FragmentListBinding.inflate(inflater, container, false)
 
+        setupAdapter()
+
+        setupViewModel()
+
+        mViewModel.getListPokemon()
+
+
+
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupAdapter()
-
-        setupViewModel()
-
-        mViewModel.getListPokemon()
 
         setupScrollListener()
     }
@@ -56,6 +63,16 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
     private fun showLoadingError() {
         lifecycleScope.launch {
             mViewModel.listPokemonErrorSharedFlow.collect { error ->
+                Toast.makeText(
+                    requireContext(),
+                    error.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        lifecycleScope.launch {
+            mViewModel.pokemonDetailErrorSharedFlow.collect { error ->
                 Toast.makeText(
                     requireContext(),
                     error.message,
@@ -94,17 +111,17 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
     }
 
     private fun setupAdapter() {
-        mAdapter = PokemonAdapter(arrayListOf(), this)
+        mAdapter = PokemonAdapter(arrayListOf(), this, requireContext())
 
         mBinding.recyclerView.setHasFixedSize(true)
         mBinding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         mBinding.recyclerView.adapter = mAdapter
     }
 
-    override fun onPokemonClick(position: Int) {
+    override fun onPokemonClick(idPokemon: Int) {
         findNavController().navigate(
             ListFragmentDirections
-                .actionListFragmentToDetailFragment(position = position)
+                .actionListFragmentToDetailFragment(idPokemon)
         )
     }
 

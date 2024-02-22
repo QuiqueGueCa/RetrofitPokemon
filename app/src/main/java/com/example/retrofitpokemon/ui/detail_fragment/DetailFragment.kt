@@ -110,7 +110,7 @@ class DetailFragment : Fragment() {
                 when (uiState) {
                     is DetailFragmentUiState.Error -> {
                         mBinding.progressBar.visibility = View.GONE
-                        mBinding.vBackground.visibility = View.VISIBLE
+                        mBinding.constraintLayout.visibility = View.INVISIBLE
                         Toast.makeText(
                             requireContext(),
                             "Ha ocurrido un error: ${uiState.msg}",
@@ -120,12 +120,12 @@ class DetailFragment : Fragment() {
 
                     DetailFragmentUiState.Loading -> {
                         mBinding.progressBar.visibility = View.VISIBLE
-                        mBinding.vBackground.visibility = View.VISIBLE
+                        mBinding.constraintLayout.visibility = View.INVISIBLE
                     }
 
                     is DetailFragmentUiState.Success -> {
                         mBinding.progressBar.visibility = View.GONE
-                        mBinding.vBackground.visibility = View.GONE
+                        mBinding.constraintLayout.visibility = View.VISIBLE
 
                         setupPokemonMainData(uiState.pokemonDetailModel)
                         showAbilities(uiState.abilities)
@@ -165,7 +165,7 @@ class DetailFragment : Fragment() {
             mBinding.llHorizontal.addView(itemBinding.root)
 
             if (namePokemon == mBinding.tvName.text) {
-                val color = ResourcesCompat.getColor(resources, R.color.green, null)
+                val color = ResourcesCompat.getColor(resources, R.color.yellowPokemon, null)
                 itemBinding.root.setTextColor(color)
             }
             "$mainText $namePokemon".also { itemBinding.root.text = it }

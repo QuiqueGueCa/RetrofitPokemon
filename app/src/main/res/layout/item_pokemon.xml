@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="225dp"
+    android:layout_width="@dimen/itemWidth"
     android:layout_height="@dimen/itemHeight"
     android:layout_margin="@dimen/commonMargin"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,20 +13,33 @@
         android:layout_height="wrap_content"
         tools:text="#1"
         android:textSize="@dimen/txtSize"
-        android:layout_marginStart="@dimen/commonMargin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/commonMargin"
+        app:layout_constraintStart_toStartOf="@id/imgPokemon"
+        app:layout_constraintTop_toBottomOf="@id/imgPokemon"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/tvNamePokemon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="NombrePokemon"
+        tools:text="Pokemon"
         android:textSize="@dimen/txtSize"
-        android:layout_marginStart="@dimen/commonMargin"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/commonMargin"
+        android:layout_marginStart="@dimen/minMargin"
+        app:layout_constraintTop_toBottomOf="@id/imgPokemon"
         app:layout_constraintStart_toEndOf="@id/tvIdPokemon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgPokemon"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        tools:src="@drawable/ic_water"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvNamePokemon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,8 +48,7 @@ class DetailFragmentViewModel(
     private val abilities: MutableList<AbilityDetailModel> = mutableListOf()
 
 
-    fun getPokemonDetail(position: Int) {
-        val idPokemon = position + 1
+    fun getPokemonDetail(idPokemon: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             getPokemonDetailUseCase(idPokemon)
                 .collect {
