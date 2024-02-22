@@ -198,7 +198,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vHorizontalDividerBot" />
 
-
             <LinearLayout
                 android:id="@+id/llAbilities"
                 android:layout_width="match_parent"
@@ -213,6 +212,13 @@
                 app:layout_constraintTop_toBottomOf="@id/tvAbilities"
                 tools:listitem="@layout/item_ability" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imgPokeball"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:src="@drawable/pokeball"
+            android:layout_gravity="start" />
 
         <ProgressBar
             android:id="@+id/progressBar"
