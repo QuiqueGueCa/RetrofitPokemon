@@ -111,7 +111,6 @@ class DetailFragment : Fragment() {
                 when (uiState) {
                     is DetailFragmentUiState.Error -> {
                         mBinding.imgPokeball.visibility = View.GONE
-                        mBinding.progressBar.visibility = View.GONE
                         mBinding.constraintLayout.visibility = View.INVISIBLE
                         Toast.makeText(
                             requireContext(),
@@ -121,13 +120,11 @@ class DetailFragment : Fragment() {
                     }
 
                     DetailFragmentUiState.Loading -> {
-                        mBinding.progressBar.visibility = View.VISIBLE
                         mBinding.constraintLayout.visibility = View.INVISIBLE
                         mBinding.imgPokeball.visibility = View.VISIBLE
                     }
 
                     is DetailFragmentUiState.Success -> {
-                        mBinding.progressBar.visibility = View.GONE
                         mBinding.constraintLayout.visibility = View.VISIBLE
                         mBinding.imgPokeball.visibility = View.GONE
 

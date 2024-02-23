@@ -219,11 +219,5 @@
             android:layout_height="350dp"
             android:src="@drawable/pokeball"
             android:layout_gravity="start" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
     </FrameLayout>
 </androidx.core.widget.NestedScrollView>

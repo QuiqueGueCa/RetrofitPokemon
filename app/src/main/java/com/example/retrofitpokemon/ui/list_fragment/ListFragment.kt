@@ -10,8 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.retrofitpokemon.R
 import com.example.retrofitpokemon.data.domain.usecase.GetListPokemonUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonDetailUseCase
 import com.example.retrofitpokemon.databinding.FragmentListBinding
@@ -42,8 +40,6 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
         setupViewModel()
 
         mViewModel.getListPokemon()
-
-        Glide.with(requireContext()).asGif().load(R.drawable.pokedex).into(mBinding.imgPokedex);
 
 
         return mBinding.root
@@ -90,7 +86,6 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
             mViewModel.uiState.collect { uiState ->
                 when (uiState) {
                     is ListFragmentUiState.Error -> {
-                        mBinding.imgPokedex.visibility = View.GONE
                         mBinding.progressBar.visibility = View.GONE
                         Toast.makeText(
                             requireContext(),
@@ -102,13 +97,11 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
                     ListFragmentUiState.Loading -> {
                         mBinding.progressBar.visibility = View.VISIBLE
                         mBinding.recyclerView.visibility = View.GONE
-                        mBinding.imgPokedex.visibility = View.VISIBLE
                     }
 
                     is ListFragmentUiState.Success -> {
                         mBinding.progressBar.visibility = View.GONE
                         mBinding.recyclerView.visibility = View.VISIBLE
-                        mBinding.imgPokedex.visibility = View.GONE
                         mAdapter.refreshData(uiState.listPokemon)
                     }
                 }
