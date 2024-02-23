@@ -6,4 +6,6 @@
     <string name="imgPokemon">Imagen del pokemon</string>
     <string name="evolutionChain">Cadena evolutiva:</string>
     <string name="types">Tipos:</string>
+    <string name="choiceRegion">Escoge región!</string>
+    <string name="region">Región:</string>
 </resources>

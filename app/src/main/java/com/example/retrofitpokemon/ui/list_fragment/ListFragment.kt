@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitpokemon.data.domain.usecase.GetListPokemonUseCase
 import com.example.retrofitpokemon.data.domain.usecase.GetPokemonDetailUseCase
 import com.example.retrofitpokemon.databinding.FragmentListBinding
 import com.example.retrofitpokemon.injection.InjectionSingleton
@@ -23,52 +22,38 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
     private lateinit var mAdapter: PokemonAdapter
     private val mViewModel: ListFragmentViewModel =
         ListFragmentViewModel(
-            GetListPokemonUseCase(InjectionSingleton.provideDataSource()),
             GetPokemonDetailUseCase(InjectionSingleton.provideDataSource())
         )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mViewModel.addPokemonToList()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         mBinding = FragmentListBinding.inflate(inflater, container, false)
-
-        setupAdapter()
-
-        setupViewModel()
-
-        mViewModel.getListPokemon()
-
-
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        setupAdapter()
+        setupViewModel()
         setupScrollListener()
     }
 
     private fun setupViewModel() {
 
         uiStateBehaviour()
-
         showLoadingError()
     }
 
     private fun showLoadingError() {
-        lifecycleScope.launch {
-            mViewModel.listPokemonErrorSharedFlow.collect { error ->
-                Toast.makeText(
-                    requireContext(),
-                    error.message,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
 
         lifecycleScope.launch {
             mViewModel.pokemonDetailErrorSharedFlow.collect { error ->
@@ -96,12 +81,10 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
 
                     ListFragmentUiState.Loading -> {
                         mBinding.progressBar.visibility = View.VISIBLE
-                        mBinding.recyclerView.visibility = View.GONE
                     }
 
                     is ListFragmentUiState.Success -> {
                         mBinding.progressBar.visibility = View.GONE
-                        mBinding.recyclerView.visibility = View.VISIBLE
                         mAdapter.refreshData(uiState.listPokemon)
                     }
                 }
@@ -111,17 +94,17 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
 
     private fun setupAdapter() {
         mAdapter = PokemonAdapter(arrayListOf(), this, requireContext())
-
         mBinding.recyclerView.setHasFixedSize(true)
         mBinding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         mBinding.recyclerView.adapter = mAdapter
     }
 
     override fun onPokemonClick(idPokemon: Int) {
-        findNavController().navigate(
-            ListFragmentDirections
-                .actionListFragmentToDetailFragment(idPokemon)
-        )
+        findNavController()
+            .navigate(
+                ListFragmentDirections
+                    .actionListFragmentToDetailFragment(idPokemon)
+            )
     }
 
     private fun setupScrollListener() {
@@ -138,7 +121,7 @@ class ListFragment : Fragment(), PokemonAdapter.PokemonListener {
                         (layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition() ?: 0
 
                     if (firstVisibleItemPosition + visibleItemCount >= totalItemCount) {
-                        mViewModel.getListPokemon()
+                        mViewModel.addPokemonToList()
                     }
                 }
             })
